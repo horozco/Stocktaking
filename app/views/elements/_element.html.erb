@@ -1,0 +1,8 @@
+<div class = "well">
+  <p><b><%="#{element.name} #{element.reference}"%></b></p>
+  <p><%= element.status %></p>
+  <p><%= element.value %></p>
+  <p><%= element.details %></p>
+
+  <%=link_to "Delete Element", feed_path, method: :delete, data:{confirm: "Are you sure your want to delete this element?"}%>
+</div>

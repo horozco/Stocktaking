@@ -1,0 +1,19 @@
+<fieldset>
+    <legend>Inventories</legend>
+	<div class = "form_inventory">
+			<%if @inventories.size > 0 %>
+				<%@inventories.each do |inventory| %>
+					<div class = "well">
+					<h3><%=link_to inventory.site, inventory%></h3>
+					<h4><%=inventory.details%></h4>
+					<%=link_to "Delete", inventory, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%>
+					</div>
+				<%end%>
+			<%else%>
+				<div class = "well">
+				<h3>no inventories exist</h3>
+				</div>	
+			<%end%>
+	</div>
+	<%=link_to "Create a new Inventory", new_inventory_path, class: "btn btn-primary"%>
+</fieldset>

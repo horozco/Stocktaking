@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stocktaking</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class= "navbar navbar-fixed-top" >
+      <div class="navbar-inner">
+        <div class "contaniner">
+          <%=link_to "Stocktaking", root_path, class: "brand"%>  
+          <ul class="nav">
+            <li><%=link_to "All Inventories" , feed_path%></li>
+          </ul>
+            
+        </div>
+      </div>
+    </div>
+
+    <footer class= "navbar navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container">
+          <a href="http://www.koombea.com" class ="brand">&copy; Koombea 2012</a> 
+        </div>
+      </div>
+    </footer>
+
+    <div class="contaniner">
+      <%if notice%>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p class="notice"><%= notice %></p> 
+        </div>
+      <%end%>
+      <%if alert%>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p><%= alert %></p>
+        </div>
+      <%end%>
+    </div>
+
+    <div id="yield" class="container">
+      <%= yield %>
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<fieldset>
+    <legend><%=@inventory.site %> Inventory</legend>
+	<div class= "form_inventory">
+		<div class= "well">
+			<p><b>Description:</b><%=@inventory.details %></p>
+			<p>	<%=link_to "Edit", edit_inventory_path, class: "btn"%>
+			<%=link_to "Delete", @inventory, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%></p>
+		</div>
+	</div>
+	<legend>Elements</legend>
+	
+	<div id="elements">
+	  <% if @inventory.elements%>  
+      	<%=render @inventory.elements%>
+      <%else%>
+      <a>This inventory don't have any element</a>
+	  <%end%>
+	</div>
+	<legend>New Element</legend>
+	<%=simple_form_for([@inventory, @inventory.elements.build]) do |f|%>
+	  <div class="well">
+	      <%= f.input :name %>
+	      <%= f.input :reference %>
+	      <%= f.input :status %>
+	      <%= f.input :value %>
+	      <%= f.input :details, :input_html =>{:rows => 10}  %>
+	      <%= f.submit class: "btn btn-primary  " %>
+	  </div>
+	<%end%>
+</fieldset>
+<p>	<%=link_to "Back To All Inventory", feed_path, class: "btn"%></p>
