@@ -1,8 +1,10 @@
-<div class = "well">
-  <p><b><%="#{element.name} #{element.reference}"%></b></p>
-  <p><%= element.status %></p>
-  <p><%= element.value %></p>
-  <p><%= element.details %></p>
-
-  <%=link_to "Delete Element", feed_path, method: :delete, data:{confirm: "Are you sure your want to delete this element?"}%>
-</div>
+<tbody>
+  <tr>
+    <td><%= element.reference %></td>
+    <td><%= element.name %></td>
+    <td><%= element.status %></td>
+    <td><%= element.value %></td>
+    <td><%= element.details.truncate(30, omission: ' ...') %></td>
+    <td><%=link_to "Delete Element", inventory_element_path(@inventory, element), method: :delete, data:{confirm: "Are you sure your want to delete this element?"}%></td>
+  </tr>
+</tbody>

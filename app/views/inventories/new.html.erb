@@ -2,6 +2,6 @@
     <legend>Create Inventory</legend>
 	<div class= "form_inventory">
 		<%= render 'form'%>
-		<%=link_to "Back To All Inventory", feed_path, class: "btn"%>
+		<%=link_to "Back To All Inventory", user_inventories_path(current_user), class: "btn"%>
 	</div>
 </fieldset>

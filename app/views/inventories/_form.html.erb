@@ -1,7 +1,7 @@
-<%=simple_form_for(@inventory) do |f|%>
+<%= simple_form_for([current_user,@inventory]) do |f|%>
   <div class="well">
       <%= f.input :site %>
       <%= f.input :details, :input_html =>{:rows => 10}  %>
-      <%= f.submit class: "btn btn-primary  " %>
+      <%= f.submit class: "btn btn-primary" %>
   </div>
 <%end%>

@@ -3,15 +3,27 @@
 	<div class= "form_inventory">
 		<div class= "well">
 			<p><b>Description:</b><%=@inventory.details %></p>
-			<p>	<%=link_to "Edit", edit_inventory_path, class: "btn"%>
-			<%=link_to "Delete", @inventory, method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%></p>
+			<p>	<%=link_to "Edit", edit_user_inventory_path(current_user), class: "btn"%>
+			<%=link_to "Delete", inventory_path(@inventory), method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%></p>
 		</div>
 	</div>
 	<legend>Elements</legend>
 	
 	<div id="elements">
-	  <% if @inventory.elements%>  
-      	<%=render @inventory.elements%>
+	  <% if @inventory.elements%> 
+  				<table class="table table-striped">  					
+				    <thead>
+				      <tr>
+				        <th>Referencia</th>
+				        <th>Nombre</th>
+				        <th>Estado</th>
+				        <th>Valor</th>
+				        <th>Detalles</th>
+				        <th>Acciones</th>
+				      </tr>
+				    </thead>
+      			<%=render @inventory.elements%>
+      		</table>
       <%else%>
       <a>This inventory don't have any element</a>
 	  <%end%>
@@ -28,4 +40,4 @@
 	  </div>
 	<%end%>
 </fieldset>
-<p>	<%=link_to "Back To All Inventory", feed_path, class: "btn"%></p>
+<p>	<%=link_to "Back To All Inventory", root_path, class: "btn"%></p>

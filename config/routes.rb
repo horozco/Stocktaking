@@ -1,10 +1,13 @@
 Stocktaking::Application.routes.draw do
 
-  resources :inventories do
-    resources :elements
+  devise_for :users 
+  resources :users do 
+    resources :inventories
   end
 
-  get 'feed', to: 'inventories#index', as: :feed
+    resources :inventories do
+      resources :elements
+    end
 
   root :to => "home#index"
 

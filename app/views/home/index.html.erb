@@ -1,2 +1,4 @@
 <h1>Welcome to StockTaking Aplication</h1>
-<%=link_to "inventories", inventories_path%>
+<% if user_signed_in? %>
+  <%= link_to "Mis inventarios", user_inventories_path(current_user)%>
+<% end %>  

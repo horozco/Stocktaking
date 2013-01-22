@@ -1,13 +1,14 @@
 class InventoriesController < ApplicationController
-
+  before_filter :authenticate_user!
   def new
     @inventory = Inventory.new()
   end
 
   def create
     @inventory = Inventory.new(params[:inventory])
+    @inventory.user = current_user
     if @inventory.save
-      redirect_to @inventory, notice: "Inventory was created" 
+      redirect_to user_inventories_path(current_user), notice: "Inventory was created" 
     else
       flash[:alert] = "Inventory wasn't created :("
       render action: "new"
@@ -15,7 +16,9 @@ class InventoriesController < ApplicationController
   end
 
   def index
-    @inventories = Inventory.order("created_at DESC")
+    if user_signed_in?
+    @inventories = current_user.inventories.order("created_at DESC")
+    end
   end
 
   def show
@@ -41,12 +44,12 @@ class InventoriesController < ApplicationController
     if @inventory.destroy
         flash[:notice] = "Inventory was destroyed successfully"
         respond_to do |format|
-          format.html { redirect_to feed_url }
+          format.html { redirect_to user_inventory_path(current_user) }
         end
     else
         flash[:alert] = "Inventory wasn't destroyed"
        respond_to do |format|
-          format.html { redirect_to feed_url }
+          format.html { redirect_to user_inventory_path(current_user) }
         end
     end
   end

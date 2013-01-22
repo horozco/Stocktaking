@@ -40,7 +40,7 @@ class ElementsController < ApplicationController
   	  	@inventory = Inventory.find(params[:inventory_id])
 	  	@element = Element.find(params[:id])
 	  	if @element.update_attributes(params[:element])
-      		redirect_to @inventory, notice: "Element was updated" 
+      		redirect_to inventory_path(inventory), notice: "Element was updated" 
     	else
       		flash[:alert] = "Element wasn't updated :("
       		render action: "edit"
