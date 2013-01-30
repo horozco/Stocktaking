@@ -5,6 +5,9 @@
     <td><%= element.status %></td>
     <td><%= element.value %></td>
     <td><%= element.details.truncate(30, omission: ' ...') %></td>
-    <td><%=link_to "Delete Element", inventory_element_path(@inventory, element), method: :delete, data:{confirm: "Are you sure your want to delete this element?"}%></td>
+    <td>
+      <%=link_to "Ver", inventory_element_path(@inventory)%> | 
+      <%=link_to "Eliminar", inventory_element_path(@inventory, element), method: :delete, data:{confirm: "¿Realmente deseas eliminar este elemento?"}%>
+      </td>
   </tr>
 </tbody>

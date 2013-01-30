@@ -1,9 +1,6 @@
 Stocktaking::Application.routes.draw do
 
-  devise_for :users 
-  resources :users do 
-    resources :inventories
-  end
+  devise_for :users
 
     resources :inventories do
       resources :elements

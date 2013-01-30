@@ -8,7 +8,7 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.new(params[:inventory])
     @inventory.user = current_user
     if @inventory.save
-      redirect_to user_inventories_path(current_user), notice: "Inventory was created" 
+      redirect_to inventory_path(@inventory), notice: "Inventory was created"
     else
       flash[:alert] = "Inventory wasn't created :("
       render action: "new"
@@ -17,7 +17,7 @@ class InventoriesController < ApplicationController
 
   def index
     if user_signed_in?
-    @inventories = current_user.inventories.order("created_at DESC")
+      @inventories = current_user.inventories.order("created_at DESC")
     end
   end
 
@@ -44,12 +44,12 @@ class InventoriesController < ApplicationController
     if @inventory.destroy
         flash[:notice] = "Inventory was destroyed successfully"
         respond_to do |format|
-          format.html { redirect_to user_inventory_path(current_user) }
+          format.html { redirect_to inventories_path }
         end
     else
         flash[:alert] = "Inventory wasn't destroyed"
        respond_to do |format|
-          format.html { redirect_to user_inventory_path(current_user) }
+          format.html { redirect_to inventories_path }
         end
     end
   end

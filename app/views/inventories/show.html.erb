@@ -1,17 +1,17 @@
 <fieldset>
-    <legend><%=@inventory.site %> Inventory</legend>
+    <legend> Inventario "<%=@inventory.site %>"" </legend>
 	<div class= "form_inventory">
 		<div class= "well">
 			<p><b>Description:</b><%=@inventory.details %></p>
-			<p>	<%=link_to "Edit", edit_user_inventory_path(current_user), class: "btn"%>
-			<%=link_to "Delete", inventory_path(@inventory), method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%></p>
+			<p>	<%=link_to "Editar", edit_inventory_path(@inventory), class: "btn"%>
+			<%=link_to "Eliminar", inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas eliminar este inventario?"}, class: "btn"%></p>
 		</div>
 	</div>
-	<legend>Elements</legend>
-	
+	<legend>Elementos</legend>
+
 	<div id="elements">
-	  <% if @inventory.elements%> 
-  				<table class="table table-striped">  					
+	  <% if @inventory.elements%>
+  				<table class="table table-striped">
 				    <thead>
 				      <tr>
 				        <th>Referencia</th>
@@ -25,7 +25,7 @@
       			<%=render @inventory.elements%>
       		</table>
       <%else%>
-      <a>This inventory don't have any element</a>
+      <a>Este inventario no tiene ningún elemento.</a>
 	  <%end%>
 	</div>
 	<legend>New Element</legend>
@@ -40,4 +40,4 @@
 	  </div>
 	<%end%>
 </fieldset>
-<p>	<%=link_to "Back To All Inventory", root_path, class: "btn"%></p>
+<p>	<%=link_to "Back To All Inventory", inventories_path, class: "btn"%></p>

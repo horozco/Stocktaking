@@ -10,17 +10,18 @@
 <div class= "navbar navbar-fixed-top" >
       <div class="navbar-inner">
         <div class "contaniner">
-          <%=link_to "Stocktaking", root_path, class: "brand"%>  
+          <%=link_to "Stocktaking", root_path, class: "brand"%>
           <ul class="nav">
             <% if user_signed_in? %>
-              <li><%=link_to "Inventarios" , user_inventories_path(current_user) %></li>
-            <% end %>
+              <li><%=link_to "Inventarios" , inventories_path %></li>
+            <% else %>
             <li><%=link_to "Registrame" , new_user_registration_path%></li>
+            <% end %>
           </ul>
           <% if user_signed_in? %>
             <ul class="nav pull-right">
               <li><%=link_to "#{current_user.email}" , edit_user_registration_path(current_user) %></li>
-            </ul>  
+            </ul>
           <%end%>
         </div>
       </div>

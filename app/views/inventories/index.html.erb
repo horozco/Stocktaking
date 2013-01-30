@@ -1,19 +1,19 @@
 <fieldset>
-    <legend>Inventories</legend>
+    <legend>Inventarios</legend>
 	<div class = "form_inventory">
 			<%if @inventories.size > 0 %>
 				<%@inventories.each do |inventory| %>
 					<div class = "well">
-					<h3><%=link_to inventory.site, user_inventory_path(current_user,inventory)%></h3>
+					<h3><%=link_to inventory.site, inventory_path(inventory)%></h3>
 					<h4><%=inventory.details%></h4>
-					<%=link_to "Delete", user_inventory_path(current_user,inventory), method: :delete, data:{confirm: "Are you sure your want to delete this post?"}, class: "btn"%>
+					<%=link_to "Eliminar", inventory_path(inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn"%>
 					</div>
 				<%end%>
 			<%else%>
 				<div class = "well">
 				<h3>No hay ningún inventario aún</h3>
-				</div>	
+				</div>
 			<%end%>
 	</div>
-	<%=link_to "Create a new Inventory", new_user_inventory_path, class: "btn btn-primary"%>
+	<%=link_to "Crea un nuevo inventario", new_inventory_path, class: "btn btn-primary"%>
 </fieldset>
