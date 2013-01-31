@@ -1,4 +1,6 @@
 <h1>Bienvenidos a Stocktaking</h1>
 <% if user_signed_in? %>
   <%= link_to "Mis inventarios", inventories_path%>
+<% else %>
+  <p>Inicia sesión para administrar o crear Inventarios.</p>
 <% end %>

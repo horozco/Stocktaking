@@ -7,6 +7,29 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class="container-narrow">
+  <div class="masthead">
+    <ul class="nav nav-pills pull-right">
+      <li class="active"><a href="#">Home</a></li>
+      <% if user_signed_in? %>
+        <li><%=link_to "Inventarios" , inventories_path %></li>
+        <li><%=link_to "#{current_user.email}" , edit_user_registration_path(current_user) %></li>
+      <% end %>
+      <li><a href="http://sancarborromeo.jimdo.com">Regresar</a></li>
+    </ul>
+    <h3><%=link_to "Stocktaking", root_path, class: "muted"%></h3>
+  </div>
+
+  <hr>
+
+  <div class="jumbotron">
+    <h1>Super awesome marketing speak!</h1>
+    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+    <a class="btn btn-large btn-success" href="#">Sign up today</a>
+  </div>
+</div>
+
 <div class= "navbar navbar-fixed-top" >
       <div class="navbar-inner">
         <div class "contaniner">
@@ -14,15 +37,15 @@
           <ul class="nav">
             <% if user_signed_in? %>
               <li><%=link_to "Inventarios" , inventories_path %></li>
-            <% else %>
-            <li><%=link_to "Registrame" , new_user_registration_path%></li>
             <% end %>
           </ul>
-          <% if user_signed_in? %>
-            <ul class="nav pull-right">
+          <ul class="nav pull-right">
+            <% if user_signed_in? %>
               <li><%=link_to "#{current_user.email}" , edit_user_registration_path(current_user) %></li>
-            </ul>
-          <%end%>
+            <%else%>
+              <li><%=link_to "Iniciar Sesión", new_user_session_path%></li>
+            <%end%>
+          </ul>
         </div>
       </div>
     </div>
@@ -39,7 +62,7 @@
       <%if notice%>
         <div class="alert alert-success">
           <button type="button" class="close" data-dismiss="alert">×</button>
-          <p class="notice"><%= notice %></p> 
+          <p class="notice"><%= notice %></p>
         </div>
       <%end%>
       <%if alert%>
