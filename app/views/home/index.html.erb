@@ -1,6 +1,9 @@
-<h1>Bienvenidos a Stocktaking</h1>
-<% if user_signed_in? %>
-  <%= link_to "Mis inventarios", inventories_path%>
-<% else %>
-  <p>Inicia sesión para administrar o crear Inventarios.</p>
-<% end %>
+<div class="jumbotron">
+  <h1>Bienvenido a Stocktaking</h1>
+  <p class="lead">Administra los inventarios de tu compañía de manera fácil, eficaz y lo más importante <strong><br>¡En Equipo!</br></strong></p>
+  <%if user_signed_in? %>
+    <a><%=link_to "Inventarios" , inventories_path, class: "btn btn-large btn-success"%></a>
+  <%else%>
+    <a><%=link_to "Inicia sesión para Empezar", new_user_session_path, class: "btn btn-large btn-success"%></a>
+  <%end%>
+</div>

@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <h1>Inicia Sesión</h1>
+  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <div class="form-inputs">
+      <%= f.input :email, :required => false, :autofocus => true %>
+      <%= f.input :password, :required => false %>
+      <%= f.input :remember_me, :wrapper => :inline_checkbox, :as => :boolean , inline_label: 'Recordarme', label: false %>
+    </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Iniciar" %>
+    </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>
