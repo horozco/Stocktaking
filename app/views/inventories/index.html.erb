@@ -1,12 +1,13 @@
 <fieldset>
-    <legend>Inventarios</legend>
+    <legend>Inventarios <a href="#myModal" role="button" class="btn btn-success btn-small" data-toggle="modal"><i class="icon-plus-sign" rel= "tooltip" title= "Crear Inventario"></i></a> </legend>
+
 	<div class = "form_inventory">
 			<%if @inventories.size > 0 %>
 				<%@inventories.each do |inventory| %>
 					<div class = "well">
 					<h3><%=link_to inventory.site, inventory_path(inventory)%></h3>
 					<h4><%=inventory.details%></h4>
-					<%=link_to "Eliminar", inventory_path(inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn"%>
+					<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-primary", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
 					</div>
 				<%end%>
 			<%else%>
@@ -15,5 +16,5 @@
 				</div>
 			<%end%>
 	</div>
-	<%=link_to "Crea un nuevo inventario", new_inventory_path, class: "btn btn-primary"%>
 </fieldset>
+<%=render "form"%>

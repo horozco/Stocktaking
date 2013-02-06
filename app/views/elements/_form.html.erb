@@ -1,0 +1,20 @@
+<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header" style="height: 44px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Crear Elemento</h3>
+    <hr>
+  </div>
+  <%=simple_form_for([@inventory, @inventory.elements.build]) do |f|%>
+    <div class="modal-body">
+      <%= f.input :name %>
+        <%= f.input :reference %>
+        <%= f.input :status %>
+        <%= f.input :value %>
+        <%= f.input :details, :input_html =>{:rows => 10}%>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+      <%end%>
+    </div>
+</div>

@@ -2,13 +2,12 @@
     <legend> Inventario "<%=@inventory.site %>"" </legend>
 	<div class= "form_inventory">
 		<div class= "well">
-			<p><b>Description:</b><%=@inventory.details %></p>
-			<p>	<%=link_to "Editar", edit_inventory_path(@inventory), class: "btn"%>
-			<%=link_to "Eliminar", inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas eliminar este inventario?"}, class: "btn"%></p>
+			<p><b>Descripción: </b><%=@inventory.details %></p>
+			<p> <a href="#myModal" role="button" class="btn btn-success" data-toggle="modal">Editar</a>
+			<%=link_to "Eliminar", inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas eliminar este inventario?"}, class: "btn btn-primary"%></p>
 		</div>
 	</div>
-	<legend>Elementos</legend>
-
+	<legend>Elementos <a href="#myModal2" role="button" class="btn btn-small" data-toggle="modal">Nuevo Elemento</a> </legend>
 	<div id="elements">
 	  <% if @inventory.elements%>
   				<table class="table table-striped">
@@ -28,16 +27,9 @@
       <a>Este inventario no tiene ningún elemento.</a>
 	  <%end%>
 	</div>
-	<legend>New Element</legend>
-	<%=simple_form_for([@inventory, @inventory.elements.build]) do |f|%>
-	  <div class="well">
-	      <%= f.input :name %>
-	      <%= f.input :reference %>
-	      <%= f.input :status %>
-	      <%= f.input :value %>
-	      <%= f.input :details, :input_html =>{:rows => 10}  %>
-	      <%= f.submit class: "btn btn-primary  " %>
-	  </div>
-	<%end%>
 </fieldset>
-<p>	<%=link_to "Back To All Inventory", inventories_path, class: "btn"%></p>
+<div id="forms">
+	<%=render "form"%>
+	<%=render "elements/form"%>
+</div>
+<p>	<%=link_to "Todos los inventarios", inventories_path, class: "btn btn-success"%></p>

@@ -1,7 +1,17 @@
-<%= simple_form_for([@inventory]) do |f|%>
-  <div class="well">
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header" style="height: 44px;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Crear Inventario</h3>
+    <hr>
+  </div>
+  <%= simple_form_for([@inventory]) do |f|%>
+    <div class="modal-body">
       <%= f.input :site, label: "Lugar de ubicación" %>
       <%= f.input :details, :input_html =>{:rows => 10}, label: "Detalles"%>
-      <%= f.button :submit , 'Crear inventario', class: "btn btn-primary" %>
-  </div>
-<%end%>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+      <%end%>
+    </div>
+</div>

@@ -48,3 +48,16 @@ body {
 .marketing p + h4 {
   margin-top: 28px;
 }
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+fieldset {
+  font-weight:bold;
+}
+fieldset .btn{
+  margin-top: -4px;
+}
