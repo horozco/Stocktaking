@@ -39,5 +39,4 @@ class ElementsController < ApplicationController
   	@inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
   end
-  
 end
