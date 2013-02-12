@@ -1,30 +1,40 @@
 <fieldset>
-    <legend> Inventario "<%=@inventory.site %>"" </legend>
-	<div class= "form_inventory">
-		<div class= "well">
-			<p><b>Descripción: </b><%=@inventory.details %></p>
-			<p> <a href="#myModal" role="button" class="btn btn-success" data-toggle="modal">Editar</a>
-			<%=link_to "Eliminar", inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas eliminar este inventario?"}, class: "btn btn-primary"%></p>
-		</div>
-	</div>
-	<legend>Elementos <a href="#myModal2" role="button" class="btn btn-small" data-toggle="modal">Nuevo Elemento</a> </legend>
+	<div class="accordion" id="accordion1">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+        Inventario "<%=@inventory.site %>"
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <strong> Descripción: </strong>
+        <p><%=@inventory.details %></p>
+				<a href="#modalInventory" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
+				<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+      </div>
+    </div>
+  </div>
+	<legend>Elementos <a href="#modalElement" role="button" class="btn btn-mini btn-success" data-toggle="modal"><i class="icon-plus-sign" rel= "tooltip" title= "Nuevo Elemento"></i></a> </legend>
 	<div id="elements">
-	  <% if @inventory.elements%>
-  				<table class="table table-striped">
-				    <thead>
-				      <tr>
-				        <th>Referencia</th>
-				        <th>Nombre</th>
-				        <th>Estado</th>
-				        <th>Valor</th>
-				        <th>Detalles</th>
-				        <th>Acciones</th>
-				      </tr>
-				    </thead>
-      			<%=render @inventory.elements%>
-      		</table>
-      <%else%>
-      <a>Este inventario no tiene ningún elemento.</a>
+	  <% if @inventory.elements.count >= 1%>
+			<table class="table table-hover">
+		    <thead>
+		      <tr>
+		        <th>Nombre</th>
+		        <th>Referencia</th>
+		        <th>Estado</th>
+		        <th>Valor</th>
+		        <th>Detalles</th>
+		        <th>Acciones</th>
+		      </tr>
+		    </thead>
+			<%=render @inventory.elements%>
+  		</table>
+	  <%else%>
+	  	<div class="well">
+	  		<a href="#modalElement" role="button" data-toggle="modal">Cree el primer elemento para este inventario.</a>
+	  	</div>
 	  <%end%>
 	</div>
 </fieldset>
@@ -32,4 +42,5 @@
 	<%=render "form"%>
 	<%=render "elements/form"%>
 </div>
-<p>	<%=link_to "Todos los inventarios", inventories_path, class: "btn btn-success"%></p>
+<hr>
+<p>	<%=link_to "Todos los inventarios", inventories_path, class: "btn btn-primary btn-large"%></p>
