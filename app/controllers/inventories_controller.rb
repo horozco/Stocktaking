@@ -5,22 +5,22 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.new(params[:inventory])
     @inventory.user = current_user
     if @inventory.save
-      redirect_to inventory_path(@inventory), notice: "El inventario se ha actualizado correctamente."
+      redirect_to inventory_path(@inventory), notice: "El inventario se ha creado correctamente."
     else
-      flash[:alert] = "Inventory wasn't created :("
-      render action: "index"
+      flash[:alert] = "No se pudo crear el inventario."
+      redirect_to inventories_path
     end
   end
 
   def index
-    if user_signed_in?
-      @inventories = current_user.inventories.order("created_at DESC")
-      @inventory = Inventory.new()
-    end
+    @inventories = current_user.inventories.order("created_at DESC")
+    @inventory = Inventory.new()
+    $path = request.fullpath
   end
 
   def show
     @inventory = Inventory.find(params[:id])
+    $path = request.fullpath
   end
 
   def edit
@@ -30,26 +30,30 @@ class InventoriesController < ApplicationController
   def update
     @inventory = Inventory.find(params[:id])
     if @inventory.update_attributes(params[:inventory])
-      redirect_to @inventory, notice: "Inventory was updated" 
+      flash[:notice] = "El inventario se ha actualizado correctamente."
+      if $path == "/inventories"
+        redirect_to inventories_path  
+      else
+        redirect_to @inventory
+      end
     else
-      flash[:alert] = "Inventory wasn't updated :("
-      render action: "edit"
+      flash[:alert] = "No se pudo actualizar el inventario."
+      if $path == "/inventories"
+        redirect_to inventories_path
+      else
+        redirect_to @inventory
+      end
     end
   end
 
   def destroy
-  @inventory = Inventory.find(params[:id])
+    @inventory = Inventory.find(params[:id])
     if @inventory.destroy
-        flash[:notice] = "Inventory was destroyed successfully"
-        respond_to do |format|
-          format.html { redirect_to inventories_path }
-        end
+      flash[:notice] = "Se ha destruido el inventario correctamente."
+      redirect_to inventories_path
     else
-        flash[:alert] = "Inventory wasn't destroyed"
-       respond_to do |format|
-          format.html { redirect_to inventories_path }
-        end
+      flash[:alert] = "No se ha podido eliminar el inventario."
+      redirect_to inventories_path
     end
   end
-
 end
