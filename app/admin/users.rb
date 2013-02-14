@@ -1,14 +1,15 @@
+# encoding: UTF-8
 ActiveAdmin.register User do
-  index do
-    column "Photo" do |user|
+  index :title => "Usuarios" do
+    column "Foto" do |user|
       link_to image_tag("/users/#{user.id}/tiny/#{user.photo_file_name}",
                            :alt => "photo"), admin_user_path(user)
     end
-    column :full_name
-    column :email
-    column :current_sign_in_at
-    column :last_sign_in_at
-    column :sign_in_count
+    column "Nombre Completo", :full_name
+    column "Correo Electrónico", :email
+    column "Último Ingreso", :last_sign_in_at
+    column "Cantidad total de Ingresos", :sign_in_count
+    column "Fecha de creación", :created_at
     default_actions
   end
 
@@ -16,7 +17,7 @@ ActiveAdmin.register User do
   filter :email
 
   form do |f|
-    f.inputs "User Details" do
+    f.inputs "Detalle de usuario" do
       f.input :full_name
       f.input :email
       f.input :password
@@ -27,7 +28,7 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  show do
+  show :title => "Usuario" do
     attributes_table do
       row :id
       row :full_name
@@ -48,7 +49,7 @@ ActiveAdmin.register User do
     end
     active_admin_comments
   end
-=begin
+
   controller do
     def update
       if params[:user][:password].blank?
@@ -56,16 +57,14 @@ ActiveAdmin.register User do
         params[:user].delete("password_confirmation")
       end
 
-      @user = user
+      @user = User.find(params[:id])
       if @user.update_attributes(params[:user])
-        set_flash_message :notice, :updated
         # Sign in the user bypassing validation in case his password changed
         sign_in @user, :bypass => true
-        redirect_to after_update_path_for(@user)
+        redirect_to admin_user_path(@user)
       else
         render "edit"
       end
     end
   end
-=end
 end
