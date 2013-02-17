@@ -22,4 +22,5 @@ class User < ActiveRecord::Base
   validates_attachment :photo,
   :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/png"]  },
   :size => { :less_than => 10.megabytes }
+  validates_presence_of :full_name
 end
