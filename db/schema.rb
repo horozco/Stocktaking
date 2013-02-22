@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217192226) do
+ActiveRecord::Schema.define(:version => 20130222144900) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -74,6 +74,19 @@ ActiveRecord::Schema.define(:version => 20130217192226) do
   end
 
   add_index "inventories", ["user_id"], :name => "index_inventories_on_user_id"
+
+  create_table "loans", :force => true do |t|
+    t.integer  "element_id"
+    t.datetime "time_loan"
+    t.integer  "loaned_to_id"
+    t.integer  "loaned_by_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "loans", ["element_id"], :name => "index_loans_on_element_id"
+  add_index "loans", ["loaned_by_id"], :name => "index_loans_on_loaned_by_id"
+  add_index "loans", ["loaned_to_id"], :name => "index_loans_on_loaned_to_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

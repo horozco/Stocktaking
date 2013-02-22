@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :photo, :full_name
   #Relations
   has_many :inventories, dependent: :destroy
+  has_many :elements, through: :inventories
 
   has_attached_file :photo,
     :styles => {

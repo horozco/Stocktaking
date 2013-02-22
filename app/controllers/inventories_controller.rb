@@ -4,11 +4,13 @@ class InventoriesController < ApplicationController
   def create
     @inventory = Inventory.new(params[:inventory])
     @inventory.user = current_user
-    if @inventory.save
-      redirect_to inventory_path(@inventory), notice: "El inventario se ha creado correctamente."
-    else
-      flash[:alert] = "No se pudo crear el inventario."
-      redirect_to inventories_path
+    respond_to do |format|
+      if @inventory.save
+        flash[:notice] = "El inventario se ha creado correctamente."
+      else
+        flash[:alert] = "No se pudo crear el inventario."
+      end
+      format.js
     end
   end
 

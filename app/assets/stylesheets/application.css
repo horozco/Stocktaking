@@ -61,3 +61,6 @@ fieldset legend{
 fieldset .btn{
   margin-top: -4px;
 }
+.hide{
+  display: none;
+}

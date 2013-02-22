@@ -36,7 +36,7 @@ ActiveAdmin.register Element, as: "Elemento" do
   filter :updated_at, as: :date_range, label: "Fecha de actualización"
 
   show do
-    
+
     attributes_table do
       row :id
       row "Inventario" do

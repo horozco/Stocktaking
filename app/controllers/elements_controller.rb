@@ -2,18 +2,19 @@ class ElementsController < ApplicationController
   def create
   	@inventory = Inventory.find(params[:inventory_id])
   	@element = @inventory.elements.build(params[:element])
-  	if @element.save
-	    flash[:notice] = "Se ha creado el elemento."
-	    redirect_to inventory_path(@inventory)		
-  	else
-	    flash[:alert] = "El elemento no se pudo crear."
-	    redirect_to inventory_path(@inventory)
-  	end
+    respond_to do |format|
+      if @element.save
+        flash[:notice] = "Se ha creado el elemento."
+      else
+        flash[:alert] = "El elemento no se pudo crear."
+      end
+      format.js
+    end
   end
 
   def destroy
 		@inventory = Inventory.find(params[:inventory_id])
-  	@element = Element.find(params[:id])	
+  	@element = Element.find(params[:id])
   	if @element.destroy
       flash[:notice] = "El elemento ha sido destruido."
       redirect_to inventory_path(@inventory)
@@ -32,7 +33,7 @@ class ElementsController < ApplicationController
   	else
   		flash[:alert] = "El elemento no pudo ser actualizado."
   		redirect_to inventory_path(@inventory)
-  	end		
+  	end
   end
 
   def show

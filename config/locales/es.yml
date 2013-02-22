@@ -299,3 +299,9 @@ es:
   activerecord:
     errors:
       <<: *errors
+  details: "Detalles"
+  name: "Nombre"
+  reference: "Referencia"
+  status: "Estado"
+  value: "Valor"
+  site: "Lugar de ubicación"
