@@ -27,17 +27,19 @@ class ElementsController < ApplicationController
   def update
 	  @inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
-  	if @element.update_attributes(params[:element])
-    	flash[:notice] = "El elemento se ha actualizado."
-    	redirect_to inventory_path(@inventory)
-  	else
-  		flash[:alert] = "El elemento no pudo ser actualizado."
-  		redirect_to inventory_path(@inventory)
-  	end
+  	respond_to do |format|
+      if @element.update_attributes(params[:element])
+        flash[:notice] = "El elemento se ha actualizado."
+      else
+        flash[:alert] = "El elemento no pudo ser actualizado."
+      end
+      format.js
+    end
   end
 
   def show
   	@inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
+    $path = request.fullpath
   end
 end

@@ -64,3 +64,16 @@ fieldset .btn{
 .hide{
   display: none;
 }
+.alert{
+  margin-top: -20px;
+  font-family: "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+.accordion-heading{
+  background-color: #dff0d8 !important;
+}
+.accordion-toggle{
+  color: #3d9400 !important;
+}

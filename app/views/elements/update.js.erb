@@ -1,0 +1,16 @@
+<% if @element.errors.messages.blank? %>
+  <% if $path == "/inventory/:id" %>
+		location.href = '<%inventory_path(@inventory) %>'  
+	<% else %>
+	  location.href = '<%inventory_element_path(@inventory, @element)%>'
+	<% end %>
+<% else %>
+  <%
+  error = '<ul>'
+  @element.errors.messages.each do |msg|
+    error += "<li>#{I18n.t(msg[0])} #{msg[1].first}</li>"
+  end
+  error += "</ul>"
+  %>
+  $('div#errors_edit_element_<%=@element.id%>').html('<%= error.html_safe %>').show();
+<% end %>

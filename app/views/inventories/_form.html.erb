@@ -1,7 +1,11 @@
 <div id="modalInventory" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalInventoryLabel" aria-hidden="true">
   <div class="modal-header" style="height: 44px;">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="modalInventoryLabel">Inventario</h3>
+    <%if $path == "/inventories"%>
+      <h3 id="modalInventoryLabel">Crear Inventario</h3>
+    <%else%>
+      <h3 id="modalInventoryLabel">Editar Inventario</h3>
+    <%end%>
     <hr>
   </div>
   <div id="errors" class="hide" style = "float: right">

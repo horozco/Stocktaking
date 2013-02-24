@@ -25,26 +25,15 @@ class InventoriesController < ApplicationController
     $path = request.fullpath
   end
 
-  def edit
-    @inventory = Inventory.find(params[:id])
-  end
-
   def update
-    @inventory = Inventory.find(params[:id])
-    if @inventory.update_attributes(params[:inventory])
-      flash[:notice] = "El inventario se ha actualizado correctamente."
-      if $path == "/inventories"
-        redirect_to inventories_path  
+    @inventory = Inventory.find(params[:id]) 
+    respond_to do |format|
+      if @inventory.update_attributes(params[:inventory])
+        flash[:notice] = "El inventario se ha actualizado correctamente."
       else
-        redirect_to @inventory
+        flash[:alert] = "No se pudo actualizar el inventario."
       end
-    else
-      flash[:alert] = "No se pudo actualizar el inventario."
-      if $path == "/inventories"
-        redirect_to inventories_path
-      else
-        redirect_to @inventory
-      end
+      format.js
     end
   end
 

@@ -6,8 +6,8 @@ Stocktaking::Application.routes.draw do
 
   devise_for :users
 
-    resources :inventories do
-      resources :elements
+    resources :inventories, only: [:create, :destroy, :update, :index, :show] do
+      resources :elements, only: [:create, :destroy, :update, :show]
     end
 
   root :to => "home#index"
