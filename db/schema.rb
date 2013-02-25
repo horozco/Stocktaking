@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222144900) do
+ActiveRecord::Schema.define(:version => 20130225192204) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20130222144900) do
     t.float    "value"
     t.text     "details"
     t.integer  "inventory_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "loaned",       :default => false
   end
 
   add_index "elements", ["inventory_id"], :name => "index_elements_on_inventory_id"

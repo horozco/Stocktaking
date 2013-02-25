@@ -1,6 +1,12 @@
 class ElementsController < ApplicationController
+
+  before_filter :authenticate_user!, :get_inventory
+
+  def get_inventory
+    @inventory = Inventory.find(params[:inventory_id])
+  end
+
   def create
-  	@inventory = Inventory.find(params[:inventory_id])
   	@element = @inventory.elements.build(params[:element])
     respond_to do |format|
       if @element.save
@@ -13,7 +19,6 @@ class ElementsController < ApplicationController
   end
 
   def destroy
-		@inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
   	if @element.destroy
       flash[:notice] = "El elemento ha sido destruido."
@@ -25,7 +30,6 @@ class ElementsController < ApplicationController
   end
 
   def update
-	  @inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
   	respond_to do |format|
       if @element.update_attributes(params[:element])
@@ -38,7 +42,6 @@ class ElementsController < ApplicationController
   end
 
   def show
-  	@inventory = Inventory.find(params[:inventory_id])
   	@element = Element.find(params[:id])
     $path = request.fullpath
   end
