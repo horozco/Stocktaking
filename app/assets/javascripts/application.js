@@ -13,3 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+$(function() {
+  $('.accordion').sortable({
+      placeholder: "ui-state-highlight",
+      cancel: ".ui-state-disabled"
+    });
+  $('.accordion').disableSelection();
+});

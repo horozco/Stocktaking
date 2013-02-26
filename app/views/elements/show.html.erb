@@ -1,6 +1,6 @@
 <fieldset>
 	<div class="accordion" id="accordion1">
-  <div class="accordion-group">
+  <div class="accordion-group ui-state-disabled">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
         Elemento "<%=@element.name %>" - Inventario "<%=@inventory.site %>"
@@ -12,8 +12,10 @@
         <p><strong> Estado: </strong> <%=@element.status%></p>
         <p><strong> Valor estimado: </strong> <%=@element.value%></p>
         <p><strong> Detalles: </strong> <%=@element.details%></p>
-				<a href="#modalEditElement<%="#{@element.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
-				<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_element_path(@inventory, @element), method: :delete, data:{confirm: "¿Realmente deseas elminiar este elemento?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+				<%unless @inventory.finished%>
+          <a href="#modalEditElement<%="#{@element.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
+				  <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_element_path(@inventory, @element), method: :delete, data:{confirm: "¿Realmente deseas elminiar este elemento?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+        <%end%>
       </div>
     </div>
   </div>
@@ -41,5 +43,5 @@
 	  <%end%>
 	</div>
 </div>
-<hr>
+<hr class="special_hr" >
 <p>	<%=link_to "Regresar al inventario '#{@inventory.site}'", inventory_path(@inventory), class: "btn btn-primary btn-large"%></p>

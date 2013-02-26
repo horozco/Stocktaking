@@ -1,21 +1,29 @@
 <fieldset>
 	<div class="accordion" id="accordion1">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-        Inventario "<%=@inventory.site %>"
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse in">
-      <div class="accordion-inner">
-        <strong> Descripción: </strong>
-        <p><%=@inventory.details %></p>
-				<a href="#modalInventory" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
-				<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+    <div class="accordion-group ui-state-disabled">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+          Inventario "<%=@inventory.site %>"
+        </a>
+      </div>
+      <div id="collapseOne" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <strong> Descripción: </strong>
+          <p><%=@inventory.details %></p>
+          <p><strong> Finalizado: </strong><%= @inventory.finished ? "Sí" : "No" %></p>
+  				<% if @inventory.finished == false%>
+            <a href="#modalInventory" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
+    				<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(@inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+          <%end%>
+        </div>
       </div>
     </div>
   </div>
-	<legend>Elementos <a href="#modalElement" role="button" class="btn btn-mini btn-success" data-toggle="modal"><i class="icon-plus-sign" rel= "tooltip" title= "Nuevo Elemento"></i></a> </legend>
+	<% if @inventory.finished == false%>
+    <legend>Elementos <a href="#modalElement" role="button" class="btn btn-mini btn-success" data-toggle="modal"><i class="icon-plus-sign" rel= "tooltip" title= "Nuevo Elemento"></i></a> </legend>
+  <%else%>
+    <legend>Elementos</legend>
+  <%end%>
 	<div id="elements">
 	  <% if @inventory.elements.count >= 1%>
 			<table class="table table-hover">
@@ -42,5 +50,10 @@
 	<%=render "form"%>
 	<%=render "elements/form"%>
 </div>
-<hr>
-<p>	<%=link_to "Todos los inventarios", inventories_path, class: "btn btn-primary btn-large"%></p>
+<div >
+  <hr class="special_hr" >
+  <%=link_to "Todos los inventarios", inventories_path, class: "btn btn-primary btn-large"%>
+  <% if @inventory.finished == false%>
+  <%=link_to "Finalizar Inventario", finish_inventory_path(@inventory), data:{confirm: "¿Realmente deseas finalizar la edición de este inventario?"}, class: "btn btn-success btn-large", method: :put, id: 'finished_inventory'%>
+  <%end%>
+</div>

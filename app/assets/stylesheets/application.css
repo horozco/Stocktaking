@@ -77,3 +77,10 @@ fieldset .btn{
 .accordion-toggle{
   color: #3d9400 !important;
 }
+#finished_inventory{
+  float: right;
+}
+.special_hr{
+  border-top: 4px solid rgb(196, 196, 196);
+  width: 100%;
+}

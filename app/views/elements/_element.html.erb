@@ -7,8 +7,10 @@
     <td><%= element.details.truncate(30, omission: ' ...') %></td>
     <td>
       <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-eye-open")), inventory_element_path(@inventory, element), class: "btn btn-mini", :rel => "tooltip", :"title" => "Ir a elemento")%>
-      <a href="#modalEdit<%="#{element.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Elemento"></i></a>
-      <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_element_path(@inventory, element), method: :delete, data:{confirm: "¿Realmente deseas elminiar este elemento?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Elemento")%>
+      <% if @inventory.finished == false%>
+        <a href="#modalEdit<%="#{element.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Elemento"></i></a>
+        <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_element_path(@inventory, element), method: :delete, data:{confirm: "¿Realmente deseas elminiar este elemento?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Elemento")%>
+      <%end%>
       <!--Modal-->
       <div id="modalEdit<%="#{element.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
         <div class="modal-header" style="height: 44px;">
@@ -29,7 +31,7 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
           </div>
-        <%end%>  
+        <%end%>
       </div>
     </td>
   </tr>

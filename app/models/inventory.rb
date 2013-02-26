@@ -6,4 +6,5 @@ class Inventory < ActiveRecord::Base
 
   scope :finished, where(["finished = ?", true])
   scope :unfinished, where(["finished = ?", false])
+
 end

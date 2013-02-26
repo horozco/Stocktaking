@@ -5,7 +5,7 @@
 		<%if @inventories.size > 0 %>
 			<div class="accordion" id="accordion1">
 			  <%@inventories.each do |inventory| %>
-				  <div class="accordion-group">
+				  <div class="accordion-group ui-state-default">
 				    <div class="accordion-heading">
 				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href= <%="#collapse#{inventory.id}"%> >
 				        <%=inventory.site%>
@@ -15,9 +15,12 @@
 				      <div class="accordion-inner">
 				        <strong> Descripción: </strong>
 				        <p><%=inventory.details %></p>
+				        <p><strong> Finalizado: </strong><%= inventory.finished ? "Sí" : "No" %></p>
 				        <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-eye-open")), inventory_path(inventory), class: "btn btn-mini", :rel => "tooltip", :"title" => "Ir a Inventario")%>
-								<a href="#modalEdit<%="#{inventory.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
-								<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+								<% if inventory.finished == false%>
+									<a href="#modalEdit<%="#{inventory.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Inventario"></i></a>
+									<%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_path(inventory), method: :delete, data:{confirm: "¿Realmente deseas elminiar este inventario?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Inventario")%>
+								<%end%>
 				      </div>
 			    	</div>
 					  <div id="modalEdit<%="#{inventory.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
