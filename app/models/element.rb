@@ -7,4 +7,6 @@ class Element < ActiveRecord::Base
 
   scope :by_inventory, lambda { |inventario|
   	joins(:inventory).where(["inventories.id IN (?) ", inventario] ).uniq }
+
+  STATUSES = {:funcionando => "Funcionando", :funcionando_con_problemas => "Funcionando con problemas", :no_funciona => "No funciona"}
 end

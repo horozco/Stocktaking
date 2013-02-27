@@ -19,11 +19,11 @@
           <hr>
         </div>
         <div id="errors_edit_element_<%=element.id%>" class="hide" style = "float: right"></div>
-        <%=simple_form_for([@inventory, element], remote: :true) do |f|%>
+        <%=simple_form_for([@inventory, element], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
           <div class="modal-body">
             <%= f.input :name, label: "Nombre" %>
             <%= f.input :reference, label: "Referencia" %>
-            <%= f.input :status, label: "Estado" %>
+            <%= f.input :status, label: "Estado", collection: Element::STATUSES.invert.to_a %>
             <%= f.input :value, label: "Valor estimado" %>
             <%= f.input :details, :input_html =>{:rows => 10}, label: "Detalles"%>
           </div>

@@ -7,24 +7,35 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = @element.elements.build(params[:loan])
-    respond_to do |format|
-      if @loan.save
-        flash[:notice] = "Se ha prestado el elemento."
-      else
-        flash[:alert] = "El elemento no se pudo prestar."
-      end
-      format.js
+    unless @element.loaned
+      @loan = @element.elements.build(params[:loan])
+      respond_to do |format|
+        if @loan.save
+          if @element.update_attribute(:loaned, true)
+            flash[:notice] = "Se ha prestado el elemento."
+          else
+            flash[:alert] = "El elemento no se pudo prestar."  
+          end
+        else
+          flash[:alert] = "El elemento no se pudo prestar."
+        end
+        format.js
+      end  
+    else
+      flash[:alert] = "El elemento ya ha sido prestado."
     end
   end
 
   def destroy
-    if @loan.destroy
-      flash[:notice] = "El prestamo ha finalizado."
-      redirect_to inventory_element_path(@element)
+    if @element.loaned
+      if @element.update_attribute(:loaned, false)
+        flash[:notice] = "El prestamo ha finalizado."
+        redirect_to inventory_element_path(@element)
+      else
+        flash[:alert] = "No se pudo actualizar el elemento."
+      end
     else
-      flash[:alert] = "No se pudo finalizar el préstamo."
-      redirect_to inventory_element_path(@element)
+      flash[:alert] = "El elemento no ha sido prestado."
     end
   end
 

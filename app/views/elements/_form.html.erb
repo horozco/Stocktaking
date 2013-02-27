@@ -10,7 +10,7 @@
     <div class="modal-body">
       <%= f.input :name, label: "Nombre" %>
       <%= f.input :reference, label: "referencia" %>
-      <%= f.input :status, label: "Estado" %>
+      <%= f.input :status, label: "Estado", collection: Element::STATUSES.invert.to_a %>
       <%= f.input :value, label: "valor Estimado" %>
       <%= f.input :details, :input_html =>{:rows => 3}, label: "Detalles"%>
     </div>
