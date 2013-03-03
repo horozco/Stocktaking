@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225192204) do
+ActiveRecord::Schema.define(:version => 20130302213558) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -78,16 +78,19 @@ ActiveRecord::Schema.define(:version => 20130225192204) do
 
   create_table "loans", :force => true do |t|
     t.integer  "element_id"
-    t.datetime "time_loan"
     t.integer  "loaned_to_id"
-    t.integer  "loaned_by_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "finished",     :default => false
   end
 
   add_index "loans", ["element_id"], :name => "index_loans_on_element_id"
-  add_index "loans", ["loaned_by_id"], :name => "index_loans_on_loaned_by_id"
   add_index "loans", ["loaned_to_id"], :name => "index_loans_on_loaned_to_id"
+  add_index "loans", ["user_id"], :name => "index_loans_on_loaned_by_id"
+  add_index "loans", ["user_id"], :name => "index_loans_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

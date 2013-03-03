@@ -4,7 +4,7 @@
     <h3 id="myModalLabel">Crear Elemento</h3>
     <hr>
   </div>
-  <div id="errors" class="hide" style = "float: right">
+  <div id="errors" class="hide errors" style = "float: right">
   </div>
   <%=simple_form_for([@inventory, @inventory.elements.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
     <div class="modal-body">

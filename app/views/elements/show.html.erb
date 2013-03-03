@@ -27,7 +27,7 @@
 	    <h3 id="modalEditLabel">Editar Elemento</h3>
 	    <hr>
 	  </div>
-	  <div id="errors_edit_element_<%=@element.id%>" class="hide" style = "float: right"></div>
+	  <div id="errors_edit_element_<%=@element.id%>" class="hide errors" style = "float: right"></div>
 	  <%= simple_form_for([@inventory, @element], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
 	    <div class="modal-body">
 	      <%= f.input :name, label: "Nombre" %>

@@ -1,5 +1,5 @@
 class Element < ActiveRecord::Base
-  attr_accessible :details, :name, :reference, :status, :value, :inventory, :loaned
+  attr_accessible :details, :name, :reference, :status, :value, :inventory, :loaned, :user_id
   validates_presence_of :details, :name, :reference, :status, :value
   validates_uniqueness_of :reference, :scope => :inventory_id
   belongs_to :inventory

@@ -305,3 +305,5 @@ es:
   status: "Estado"
   value: "Valor"
   site: "Lugar de ubicación"
+  loan: "Préstamo"
+  loaned_to_id: "Prestar a"

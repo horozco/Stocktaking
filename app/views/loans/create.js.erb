@@ -1,0 +1,16 @@
+<% unless @element.loaned %>
+  <% if @loan.errors.messages.blank? %>
+    location.href = '<%= inventory_path(@element.inventory) %>'
+  <% else %>
+    <%
+    error = '<ul>'
+    @loan.errors.messages.each do |msg|
+      error += "<li>#{I18n.t(msg[0])} #{msg[1].first}</li>"
+    end
+    error += "</ul>"
+    %>
+    $('div#errors_loan_element_<%=@element.id%>').html('<%= error.html_safe %>').show();
+  <% end %>
+<% else %>
+  location.href = '<%= inventory_path(@element.inventory) %>'
+<% end %>

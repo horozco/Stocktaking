@@ -1,5 +1,9 @@
 <tbody>
-  <tr>
+  <% if element.loaned%>
+    <tr class= "loaned">
+  <%else%>
+    <tr>  
+  <%end%>
     <td><%= element.name %></td>
     <td><%= element.reference %></td>
     <td><%= element.status %></td>
@@ -11,14 +15,21 @@
         <a href="#modalEdit<%="#{element.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Elemento"></i></a>
         <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-trash")), inventory_element_path(@inventory, element), method: :delete, data:{confirm: "¿Realmente deseas elminiar este elemento?"}, class: "btn btn-mini", :rel => "tooltip", :"title" => "Eliminar Elemento")%>
       <%end%>
-      <!--Modal-->
+      <% if element.loaned%>
+        <%loan = Loan.where("element_id = ? AND finished = ?", element, false).first %>
+        <%=link_to "Finalizar Préstamo", finish_loan_path(loan), method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-mini btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento"%>
+      <%else%>
+        <a href="#modalLoan<%="#{element.id}"%>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Préstar</a>
+      <%end%>
+      
+      <!--Modal edit-->
       <div id="modalEdit<%="#{element.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
         <div class="modal-header" style="height: 44px;">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="modalEditLabel">Editar Elemento</h3>
           <hr>
         </div>
-        <div id="errors_edit_element_<%=element.id%>" class="hide" style = "float: right"></div>
+        <div id="errors_loan_element_<%=element.id%>" class="hide errors" style = "float: right"></div>
         <%=simple_form_for([@inventory, element], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
           <div class="modal-body">
             <%= f.input :name, label: "Nombre" %>
@@ -26,6 +37,25 @@
             <%= f.input :status, label: "Estado", collection: Element::STATUSES.invert.to_a %>
             <%= f.input :value, label: "Valor estimado" %>
             <%= f.input :details, :input_html =>{:rows => 10}, label: "Detalles"%>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+          </div>
+        <%end%>
+      </div>
+      <!--Modal loan-->
+      <div id="modalLoan<%="#{element.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLoanLabel" aria-hidden="true">
+        <div class="modal-header" style="height: 44px;">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="modalEditLabel">Prestar Elemento</h3>
+          <hr>
+        </div>
+        <div id="errors_loan_element_<%=element.id%>" class="hide errors" style = "float: right"></div>
+        <%=simple_form_for([@inventory, element, element.loans.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+          <div class="modal-body">
+            <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all.map { |u| [u.full_name, u.id] } %>
+            <%= f.input :start_date, label: "Fecha de inicio" %>
           </div>
           <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

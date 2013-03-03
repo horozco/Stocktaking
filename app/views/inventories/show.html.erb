@@ -55,5 +55,7 @@
   <%=link_to "Todos los inventarios", inventories_path, class: "btn btn-primary btn-large"%>
   <% if @inventory.finished == false%>
   <%=link_to "Finalizar Inventario", finish_inventory_path(@inventory), data:{confirm: "¿Realmente deseas finalizar la edición de este inventario?"}, class: "btn btn-success btn-large", method: :put, id: 'finished_inventory'%>
+  <%else%>
+    <%=link_to "Inventario Finalizado", "#", class: "btn btn-info btn-large", id: 'info_finished_inventory'%>
   <%end%>
 </div>

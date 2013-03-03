@@ -19,4 +19,8 @@ $(function() {
       cancel: ".ui-state-disabled"
     });
   $('.accordion').disableSelection();
+
+  $('.btn').click(function(){
+  	$('.modal .errors').hide()
+  });
 });

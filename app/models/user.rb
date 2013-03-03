@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   #Relations
   has_many :inventories, dependent: :destroy
   has_many :elements, through: :inventories
+  has_many :loans
+  has_many :loaned_tos, :through => :loans
 
   has_attached_file :photo,
     :styles => {

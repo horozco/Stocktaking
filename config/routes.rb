@@ -7,10 +7,16 @@ Stocktaking::Application.routes.draw do
   devise_for :users
 
   resources :inventories, only: [:create, :destroy, :update, :index, :show] do
-    resources :elements, only: [:create, :destroy, :update, :show]
+    resources :elements, only: [:create, :destroy, :update, :show] do
+      resources :loans, only: [:create, :index, :update] 
+    end
   end
+  
+
 
   put "inventories/:id/finish_inventory", to: "inventories#finish_inventory", as: :finish_inventory
+  
+  put "loans/:id/finish_loan", to: "loans#finish_loan", as: :finish_loan
 
   root :to => "home#index"
 
