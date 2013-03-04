@@ -1,0 +1,118 @@
+<fieldset>
+	<div class="my_loans">	
+		<legend>Yo he prestado</legend>
+		<table class="table table-hover table-bordered">
+	    <thead>
+	      <tr>
+	        <th>ID</th>
+	        <th>Prestado a</th>
+	        <th>Fecha de inicio</th>
+	        <th>Finalizado?</th>
+	        <th>Fecha de finalización</th>
+	        <th>Duración del préstamo</th>
+	        <th>Editar</th>
+	      </tr>
+	    </thead>
+	    <% @loaned_elements_by_me.each do |loan|%>
+				<tbody>
+					<% unless loan.finished%>
+				    <tr class= "loaned">
+				  <%else%>
+				    <tr>  
+				  <%end%>
+					<td><%= loan.id %></td>
+					<td><%= loan.loaned_to.full_name %></td>
+					<td><%= l loan.start_date.localtime, :format => :special %></td>
+					<td><%= loan.finished ? "Sí" : "No"%></td>
+					<% if loan.finished %>
+						<td><%= l loan.end_date.localtime, :format => :special %></td>
+						<td><%= distance_of_time_in_words(loan.start_date, loan.end_date)%></td>
+						<td>N/A</td>
+					<%else%>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>
+							<a href="#modalEdit<%="#{loan.id}"%>" role="button" class="btn btn-mini" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Préstamo"></i></a>
+				      </td>
+				      <td>
+				      <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-remove")), finish_loan_path(loan), method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-mini btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento")%>
+						</td>
+					<%end%>
+					<!--Modal edit-->
+					<div id="modalEdit<%="#{loan.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
+					  <div class="modal-header" style="height: 44px;">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					    <h3 id="modalEditLabel">Editar Préstamo</h3>
+					    <hr>
+					  </div>
+					  <div id="errors_edit_loan_<%=loan.id%>" class="hide errors" style = "float: right"></div>
+					  <%=simple_form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+					    <div class="modal-body">
+					      <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all_users(current_user) %>
+					      <%= f.input :start_date, label: "Fecha de inicio" %>
+					    </div>
+					    <div class="modal-footer">
+					      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+					    </div>
+					  <%end%>
+					</div>	
+				</tbody>
+			<%end%>
+		</table>
+	</div>
+	<div class="loans_to_me">	
+		<legend>Me han prestado</legend>
+		<table class="table table-hover table-bordered">
+	    <thead>
+	      <tr>
+	        <th>ID</th>
+	        <th>Prestado por</th>
+	        <th>Fecha de inicio</th>
+	        <th>Finalizado?</th>
+	        <th>Fecha de finalización</th>
+	        <th>Duración del préstamo</th>
+	      </tr>
+	    </thead>
+	    <% @loaned_elements_to_me.each do |loan|%>
+				<tbody>
+					<% unless loan.finished%>
+				    <tr class= "loaned">
+				  <%else%>
+				    <tr>  
+				  <%end%>
+					<td><%= loan.id %></td>
+					<td><%= loan.user.full_name %></td>
+					<td><%= l loan.start_date.localtime, :format => :special %></td>
+					<td><%= loan.finished ? "Sí" : "No"%></td>
+					<% if loan.finished %>
+						<td><%= l loan.end_date.localtime, :format => :special %></td>
+						<td><%= distance_of_time_in_words(loan.start_date, loan.end_date)%></td>
+					<%else%>
+						<td>N/A</td>
+						<td>N/A</td>
+					<%end%>
+					<!--Modal edit-->
+					<div id="modalEdit<%="#{loan.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
+					  <div class="modal-header" style="height: 44px;">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					    <h3 id="modalEditLabel">Editar Préstamo</h3>
+					    <hr>
+					  </div>
+					  <div id="errors_edit_loan_<%=loan.id%>" class="hide errors" style = "float: right"></div>
+					  <%=simple_form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+					    <div class="modal-body">
+					      <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all_users(current_user) %>
+					      <%= f.input :start_date, label: "Fecha de inicio" %>
+					    </div>
+					    <div class="modal-footer">
+					      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+					    </div>
+					  <%end%>
+					</div>	
+				</tbody>
+			<%end%>
+		</table>
+	</div>
+</fieldset>

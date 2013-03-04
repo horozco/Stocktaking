@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
   :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/png"]  },
   :size => { :less_than => 10.megabytes }
   validates_presence_of :full_name
+
+  def self.all_users(current_user)
+    users = where("id != ?", current_user.id).map { |u| [u.full_name, u.id] }
+  end
 end

@@ -27,7 +27,17 @@
     <div class="masthead">
       <ul class="nav nav-pills pull-right">
         <% if user_signed_in? %>
-          <li class="active"><%=link_to "Inventarios" , inventories_path %></li>
+          <% if current_page?(inventories_path) %>
+            <li class="active"><%=link_to "Inventarios" , inventories_path %></li>
+          <% else %>
+            <li><%=link_to "Inventarios" , inventories_path %></li>
+          <% end %>
+          
+          <% if current_page?(loans_path) %>
+            <li class="active"><%=link_to "Préstamos" , loans_path %></li>
+          <% else %>
+            <li><%=link_to "Préstamos" , loans_path %></li>
+          <% end %>
           <li class="dropdown">
             <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#"><%=current_user.full_name%><b class="caret"></b></a>
               <ul class="dropdown-menu">

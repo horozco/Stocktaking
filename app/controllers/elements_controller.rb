@@ -57,6 +57,7 @@ class ElementsController < ApplicationController
 
   def show
   	@element = Element.find(params[:id])
+    @loans = Loan.where(element_id: @element)
     $path = request.fullpath
   end
 end

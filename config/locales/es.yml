@@ -151,14 +151,14 @@ es:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: hace 1 hora
-        other: hace %{count} horas
+        one: Aprox. 1 hora
+        other: Aprox. %{count} horas
       about_x_months:
-        one: hace 1 mes
-        other: hace %{count} meses
+        one: Aprox. 1 mes
+        other: Aprox. %{count} meses
       about_x_years:
-        one: hace 1 año
-        other: hace %{count} años
+        one: Aprox. 1 año
+        other: Aprox. %{count} años
       almost_x_years:
         one: casi 1 año
         other: casi %{count} años
@@ -291,6 +291,7 @@ es:
       default: ! '%a, %d de %b de %Y a las %H:%M:%S %Z'
       long: ! '%A, %d de %B de %Y a las %I:%M %p'
       short: ! '%d de %b a las %H:%M hrs'
+      special: ! '%a, %d/%b/%Y a las %I:%M %p'
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:

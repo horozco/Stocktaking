@@ -8,10 +8,11 @@ Stocktaking::Application.routes.draw do
 
   resources :inventories, only: [:create, :destroy, :update, :index, :show] do
     resources :elements, only: [:create, :destroy, :update, :show] do
-      resources :loans, only: [:create, :index, :update] 
+      resources :loans, only: [:create, :update] 
     end
   end
   
+  resources :loans, only: [:index] 
 
 
   put "inventories/:id/finish_inventory", to: "inventories#finish_inventory", as: :finish_inventory

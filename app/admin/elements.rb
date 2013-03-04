@@ -87,8 +87,8 @@ ActiveAdmin.register Element, as: "Elemento" do
     column ("Estado") { |element| element.status }
     column ("Valor Estimado") { |element| element.value }
     column ("Detalles") { |element| element.details }
-    column ("Fecha de creación") { |element| element.created_at }
-    column ("Fecha de actualización") { |element| element.updated_at }
+    column ("Fecha de creación") { |element| element.created_at.localtime }
+    column ("Fecha de actualización") { |element| element.updated_at.localtime }
   end
 
 end

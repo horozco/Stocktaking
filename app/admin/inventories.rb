@@ -65,8 +65,8 @@ ActiveAdmin.register Inventory, as: "Inventario" do
     column ("Lugar") { |inventory| inventory.site }
     column("Usuario") { |inventory| inventory.user.full_name }
     column ("Detalles") { |inventory| inventory.details }
-    column ("Fecha de creación") { |inventory| inventory.created_at }
-    column ("Fecha de actualización") { |inventory| inventory.updated_at }
+    column ("Fecha de creación") { |inventory| inventory.created_at.localtime }
+    column ("Fecha de actualización") { |inventory| inventory.updated_at.localtime }
     column ("Finalizado") { |inventory| inventory.finished ? "Si" : "No" }
   end
 

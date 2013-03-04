@@ -84,10 +84,10 @@ ActiveAdmin.register User, as: "Usuario" do
     column ("id") {|admin| admin.id}
     column ("Nombre Completo") {|admin| admin.full_name}
     column ("Email") {|admin| admin.email}
-    column ("Último Ingreso") {|admin| admin.last_sign_in_at}
+    column ("Último Ingreso") {|admin| admin.last_sign_in_at.localtime}
     column ("Cantidad de Ingresos") {|admin| admin.sign_in_count}
-    column ("Fecha de creación") {|admin| admin.created_at}
-    column ("Fecha de actualización") {|admin| admin.updated_at}
+    column ("Fecha de creación") {|admin| admin.created_at.localtime}
+    column ("Fecha de actualización") {|admin| admin.updated_at.localtime}
   end
 
   sidebar :Ayuda, :only => :edit do
