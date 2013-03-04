@@ -2,11 +2,11 @@
   <% if element.loaned%>
     <tr class= "loaned">
   <%else%>
-    <tr>  
+    <tr>
   <%end%>
     <td><%= element.name %></td>
     <td><%= element.reference %></td>
-    <td><%= element.status %></td>
+    <td><%= Element::STATUSES[:"#{element.status}"] %></td>
     <td><%= element.value %></td>
     <td><%= element.details.truncate(30, omission: ' ...') %></td>
     <td>
@@ -17,7 +17,7 @@
       <%end%>
       <% if element.loaned%>
         <%loan = Loan.where("element_id = ? AND finished = ?", element, false).first %>
-        <%=link_to "Finalizar Préstamo", finish_loan_path(loan), method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-mini btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento"%>
+        <%=link_to "Finalizar Préstamo", finish_loan_path(loan)+"?return=#{inventory_path(element.inventory)}", method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-mini btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento"%>
       <%else%>
         <a href="#modalLoan<%="#{element.id}"%>" role="button" class="btn btn-mini btn-success" data-toggle="modal">Prestar</a>
       <%end%>
@@ -54,14 +54,16 @@
     <hr>
   </div>
   <div id="errors_loan_element_<%=element.id%>" class="hide errors" style = "float: right"></div>
-  <%=simple_form_for([@inventory, element, element.loans.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+  <%=form_for([@inventory, element, element.loans.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
     <div class="modal-body">
-      <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all_users(current_user) %>
-      <%= f.input :start_date, label: "Fecha de inicio" %>
+      <%= f.label :loaned_to_id , "*Prestar a"%>
+      <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user)), {:include_blank => true}%>
+      <%= f.label :start_date , "*Fecha de inicio"%>
+      <%= f.text_field :start_date, id: 'datetimepicker'%>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+      <%= f.submit 'Aceptar', class: "btn btn-primary" %>
     </div>
   <%end%>
 </div>

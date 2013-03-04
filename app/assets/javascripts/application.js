@@ -14,13 +14,49 @@
 //= require jquery_ujs
 //= require_tree .
 $(function() {
-  $('.accordion').sortable({
-      placeholder: "ui-state-highlight",
-      cancel: ".ui-state-disabled"
-    });
-  $('.accordion').disableSelection();
 
   $('.btn').click(function(){
   	$('.modal .errors').hide()
+  });
+
+  $.datepicker.regional['es'] = {
+    closeText: 'Ok',
+    prevText: '',
+    nextText: '',
+    currentText: 'Ahora',
+    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio', 'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+    monthNamesShort: ['Ene','Feb','Маr','Аbr','Маy','Jun', 'Jul','Аgo','Sep','Оct','Nov','Dic'],
+    dayNames: ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'],
+    dayNamesShort: ['Lun','Mar','Mie','Jue','Vie','Sab','Dom'],
+    dayNamesMin: ['Lu','Ma','Mi','Ju','Vi','Sa','Do'],
+    weekHeader: 'Не',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+  };
+
+  $.datepicker.setDefaults($.datepicker.regional['es']);
+
+  $.timepicker.regional['es'] = {
+    timeOnlyTitle: 'tiempo',
+    timeText: 'Tiempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    millisecText: 'Milisegundo',
+    timezoneText: 'Timezone',
+    currentText: 'Ahora',
+    closeText: 'Ok',
+    timeFormat: 'HH:mm',
+    amNames: ['AM', 'A'],
+    pmNames: ['PM', 'P'],
+    isRTL: false
+  };
+  $.timepicker.setDefaults($.timepicker.regional['es']);
+
+  $('#datetimepicker').datetimepicker({
+    timezone: "-0500"
   });
 });

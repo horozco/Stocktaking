@@ -1,6 +1,6 @@
 <fieldset>
 	<div class="accordion" id="accordion1">
-    <div class="accordion-group ui-state-disabled">
+    <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
         Elemento "<%=@element.name %>" - Inventario "<%=@inventory.site %>"
@@ -30,7 +30,7 @@
     <a href="#modalLoan<%="#{@element.id}"%>" role="button" class="btn btn-success btn-large" data-toggle="modal", id="finished_inventory">Prestar Elemento</a>
   <%else%>
     <%loan = Loan.where("element_id = ? AND finished = ?", @element, false).first %>
-    <%=link_to "Finalizar Préstamo", finish_loan_path(loan), method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-large btn-info", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento", id: 'info_finished_inventory'%>
+    <%=link_to "Finalizar Préstamo", finish_loan_path(loan)+"?return=#{inventory_element_path(@element.inventory, @element)}", method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-large btn-info", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento", id: 'info_finished_inventory'%>
   <%end%>
 </div>
 <div id="forms">
@@ -64,14 +64,17 @@
       <hr>
     </div>
     <div id="errors_loan_element_<%=@element.id%>" class="hide errors" style = "float: right"></div>
-    <%=simple_form_for([@inventory, @element, @element.loans.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+    <%=form_for([@inventory, @element, @element.loans.build], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
       <div class="modal-body">
-        <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all_users(current_user) %>
-        <%= f.input :start_date, label: "Fecha de inicio" %>
+        <%= f.label :loaned_to_id , "*Prestar a"%>
+        <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user)), {:include_blank => true}%>
+        <%= f.label :start_date , "*Fecha de inicio"%>
+        <%= f.text_field :start_date, id: 'datetimepicker'%>
+        <%= hidden_field_tag :return, :value => "#{inventory_element_path(@element.inventory, @element)}"%>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
+        <%= f.submit 'Aceptar', class: "btn btn-primary" %>
       </div>
     <%end%>
   </div>

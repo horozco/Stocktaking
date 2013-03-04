@@ -1,0 +1,21 @@
+<%= image_tag current_user.photo.url(:preview), class: "img-polaroid profile"%>
+<div >
+  <h1>Editar Perfil</h1>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :email, :required => true, :autofocus => true, label: "Correo Electrónico" %>
+      <%= f.input :full_name, :required => true, :autofocus => true, label: "Nombre Completo" %>
+      <%= f.input :password, :autocomplete => "off", :hint => "Déjelo en blanco si no desea cambiar su contraseña ahora.", :required => false, label: "Contraseña" %>
+      <%= f.input :password_confirmation, :required => false, label: "Confirmación de contraseña" %>
+      <%= f.input :current_password, :hint => "Necesitamos tu contraseña actual para comprobar los cambios.", :required => true , label: "Contraseña Actual"%>
+    </div>
+    <div class="jumbotron">
+      <div class="form-actions">
+        <%= f.button :submit, "Editar Usuario", class: "btn-primary" %>
+      </div>
+      <%= render "devise/shared/links" %>
+    </div>
+  <% end %>
+</div>

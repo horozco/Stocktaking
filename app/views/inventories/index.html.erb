@@ -5,13 +5,13 @@
 		<%if @inventories.size > 0 %>
 			<div class="accordion" id="accordion1">
 			  <%@inventories.each do |inventory| %>
-				  <div class="accordion-group ui-state-default">
+				  <div class="accordion-group">
 				    <div class="accordion-heading">
 				      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href= <%="#collapse#{inventory.id}"%> >
 				        <%=inventory.site%>
 				      </a>
 				    </div>
-				    <div id= "<%="collapse#{inventory.id}"%>" class="accordion-body collapse in ui-state-disabled">
+				    <div id= "<%="collapse#{inventory.id}"%>" class="accordion-body collapse in">
 				      <div class="accordion-inner">
 				        <strong> Descripción: </strong>
 				        <p><%=inventory.details %></p>

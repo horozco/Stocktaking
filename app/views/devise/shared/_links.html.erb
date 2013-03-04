@@ -1,5 +1,7 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Iniciar Sesión", new_session_path(resource_name) %><br />
+  <%- unless current_user%>
+    <%= link_to "Iniciar Sesión", new_session_path(resource_name) %><br />
+  <% end -%>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

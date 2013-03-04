@@ -23,11 +23,11 @@
 						<% unless loan.finished%>
 					    <tr class= "loaned">
 					  <%else%>
-					    <tr>  
+					    <tr>
 					  <%end%>
 						<td><%= loan.id %></td>
 						<td><%= loan.loaned_to.full_name %></td>
-						<td><%= l loan.start_date.localtime, :format => :special %></td>
+						<td><%= l loan.start_date, :format => :special %></td>
 						<td><%= loan.finished ? "Sí" : "No"%></td>
 						<% if loan.finished %>
 							<td><%= l loan.end_date.localtime, :format => :special %></td>
@@ -58,7 +58,7 @@
 						      <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
 						    </div>
 						  <%end%>
-						</div>	
+						</div>
 					</tbody>
 				<%end%>
   		</table>

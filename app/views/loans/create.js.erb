@@ -1,9 +1,7 @@
-<%params_route = Rails.application.routes.recognize_path $path%>
 <% unless @element.loaned %>
   <% if @loan.errors.messages.blank? %>
-    alert("<%=params_route%>");
     <%if params_route[:controller] == "inventories"%>
-      loca  tion.href = '<%= inventory_path(@element.inventory) %>'
+      location.href = '<%= inventory_path(@element.inventory) %>'
     <%else%>
       location.href = '<%= inventory_element_path(@element.inventory, @element) %>'
     <%end%>

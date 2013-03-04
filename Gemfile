@@ -8,11 +8,10 @@ gem 'rails', '3.2.7'
 gem 'pg'
 gem 'devise'
 gem 'simple_form', '2.0.4'
-
+gem 'sass-rails',   '~> 3.2.3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -25,6 +24,7 @@ gem 'jquery-rails'
 
 gem 'activeadmin', '0.5.1'
 gem "paperclip", '3.4.0'
+gem "kaminari", '0.14.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

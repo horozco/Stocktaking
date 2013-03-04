@@ -1,6 +1,6 @@
 <fieldset>
 	<div class="accordion" id="accordion1">
-    <div class="accordion-group ui-state-disabled">
+    <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
           Inventario "<%=@inventory.site %>"
@@ -37,8 +37,9 @@
 		        <th>Acciones</th>
 		      </tr>
 		    </thead>
-			<%=render @inventory.elements%>
-  		</table>
+			<%=render @elements.order("loaned desc")%>
+      </table>
+      <%= paginate @elements%>
 	  <%else%>
 	  	<div class="well">
 	  		<a href="#modalElement" role="button" data-toggle="modal">Cree el primer elemento para este inventario.</a>

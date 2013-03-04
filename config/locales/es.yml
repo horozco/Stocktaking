@@ -307,4 +307,4 @@ es:
   value: "Valor"
   site: "Lugar de ubicación"
   loan: "Préstamo"
-  loaned_to_id: "Prestar a"
+  loaned_to: "Prestar a"

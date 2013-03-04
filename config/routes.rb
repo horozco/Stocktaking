@@ -8,15 +8,15 @@ Stocktaking::Application.routes.draw do
 
   resources :inventories, only: [:create, :destroy, :update, :index, :show] do
     resources :elements, only: [:create, :destroy, :update, :show] do
-      resources :loans, only: [:create, :update] 
+      resources :loans, only: [:create, :update]
     end
   end
-  
-  resources :loans, only: [:index] 
 
+  get "loans/loaned_elements_to_me", to: "loans#loaned_elements_to_me", as: :loaned_elements_to_me
+  get "loans/loaned_elements_by_me", to: "loans#loaned_elements_by_me", as: :loaned_elements_by_me
 
   put "inventories/:id/finish_inventory", to: "inventories#finish_inventory", as: :finish_inventory
-  
+
   put "loans/:id/finish_loan", to: "loans#finish_loan", as: :finish_loan
 
   root :to => "home#index"

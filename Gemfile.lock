@@ -162,6 +162,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
+  kaminari (= 0.14.1)
   paperclip (= 3.4.0)
   pg
   rails (= 3.2.7)
