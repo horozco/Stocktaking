@@ -56,7 +56,7 @@ $(function() {
   };
   $.timepicker.setDefaults($.timepicker.regional['es']);
 
-  $('#datetimepicker').datetimepicker({
+  $('.datetimepicker').datetimepicker({
     timezone: "-0500"
   });
 });

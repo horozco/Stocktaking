@@ -59,7 +59,7 @@
       <%= f.label :loaned_to_id , "*Prestar a"%>
       <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user)), {:include_blank => true}%>
       <%= f.label :start_date , "*Fecha de inicio"%>
-      <%= f.text_field :start_date, id: 'datetimepicker'%>
+      <%= f.text_field :start_date, class: 'datetimepicker'%>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
