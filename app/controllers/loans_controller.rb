@@ -63,7 +63,7 @@ class LoansController < ApplicationController
     if @element.loaned
       if @loan.update_attributes(finished: true, end_date: Time.now)
         if @element.update_attribute(:loaned, false)
-          flash[:notice] = "El préstamo ha finalizado, la duración del préstamo fue apróximadamente #{distance_of_time_in_words(@loan.start_date, @loan.end_date)}."
+          flash[:notice] = "El préstamo ha finalizado, la duración del préstamo fue de #{distance_of_time_in_words(@loan.start_date, @loan.end_date)}."
           redirect_to params[:return]
         else
           flash[:alert] = "No se pudo actualizar el elemento."

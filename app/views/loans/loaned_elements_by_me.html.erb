@@ -46,16 +46,19 @@
               <hr>
             </div>
             <div id="errors_edit_loan_<%=loan.id%>" class="hide errors" style = "float: right"></div>
-            <%=simple_form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
-              <div class="modal-body">
-                <%= f.input :loaned_to_id , label: "Prestar a:", collection: User.all_users(current_user) %>
-                <%= f.input :start_date, label: "Fecha de inicio" %>
-              </div>
-              <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <%= f.button :submit , 'Aceptar', class: "btn btn-primary" %>
-              </div>
-            <%end%>
+           <%=form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+                <div class="modal-body">
+                  <%= f.label :loaned_to_id , "*Prestar a"%>
+                  <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user))%>
+                  <%= f.label :start_date , "*Fecha de inicio"%>
+                  <%= f.text_field :start_date, id: 'datetimepicker'%>
+                  <%= hidden_field_tag :return, "#{loaned_elements_by_me_path}"%>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                  <%= f.submit 'Aceptar', class: "btn btn-primary" %>
+                </div>
+              <%end%>
           </div>
         </tbody>
       <%end%>

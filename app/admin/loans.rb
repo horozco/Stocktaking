@@ -11,6 +11,7 @@ ActiveAdmin.register Loan, as: "Prestamo" do
   index do
     selectable_column
     column "Id", :id
+    column "Elemento", :element
     column "Prestado por", :user
     column "Prestado a", :loaned_to
     column "Fecha de inicio", :start_date

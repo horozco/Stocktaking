@@ -9,4 +9,8 @@ class Element < ActiveRecord::Base
   	joins(:inventory).where(["inventories.id IN (?) ", inventario] ).uniq }
 
   STATUSES = {:funcionando => "Funcionando", :funcionando_con_problemas => "Funcionando con problemas", :no_funciona => "No funciona"}
+
+  scope :loaned, where(:loaned => true)
+  scope :not_loaned, where(:loaned => false)
+
 end

@@ -4,6 +4,8 @@ ActiveAdmin.register Element, as: "Elemento" do
   config.per_page = 10
 
   scope "Todos", :all, :default => true
+  scope "Prestados", :loaned
+  scope "No Prestados", :not_loaned
 =begin
   Inventory.all.each do |inventario|
   	scope "#{inventario.site}", :by_inventory do |algo| 
@@ -57,6 +59,9 @@ ActiveAdmin.register Element, as: "Elemento" do
       row "Detalles" do
         elemento.details
       end
+      row "Prestado?" do
+        elemento.loaned ? "Sí" : "No"
+      end
       row "Fecha de creación" do
         elemento.created_at
       end
@@ -90,5 +95,4 @@ ActiveAdmin.register Element, as: "Elemento" do
     column ("Fecha de creación") { |element| element.created_at.localtime }
     column ("Fecha de actualización") { |element| element.updated_at.localtime }
   end
-
 end

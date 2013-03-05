@@ -1,10 +1,6 @@
 <% unless @element.loaned %>
   <% if @loan.errors.messages.blank? %>
-    <%if params_route[:controller] == "inventories"%>
-      location.href = '<%= inventory_path(@element.inventory) %>'
-    <%else%>
-      location.href = '<%= inventory_element_path(@element.inventory, @element) %>'
-    <%end%>
+    location.href = '<% params[:return] %>'
   <% else %>
     <%
     error = '<ul>'
@@ -16,5 +12,5 @@
     $('div#errors_loan_element_<%=@element.id%>').html('<%= error.html_safe %>').show();
   <% end %>
 <% else %>
-  location.href = '<%= inventory_path(@element.inventory) %>'
+  location.href = '<% params[:return] %>'
 <% end %>

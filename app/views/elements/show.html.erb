@@ -21,6 +21,7 @@
     </div>
   </div>
   <%=render "loans/loan"%>
+  <%= paginate @loans%>
 </fieldset>
 <!--Buttons-->
 <div id="buttons">
@@ -70,7 +71,7 @@
         <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user)), {:include_blank => true}%>
         <%= f.label :start_date , "*Fecha de inicio"%>
         <%= f.text_field :start_date, id: 'datetimepicker'%>
-        <%= hidden_field_tag :return, :value => "#{inventory_element_path(@element.inventory, @element)}"%>
+        <%= hidden_field_tag :return, "#{inventory_element_path(@element.inventory, @element)}"%>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

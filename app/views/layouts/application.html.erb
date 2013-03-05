@@ -30,10 +30,10 @@
             <li class="dropdown">
               <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="<%=inventories_path%>">Inventarios<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><%=link_to "Todos", inventories_path%></li>
+                  <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-star")+" Todos"), inventories_path)%></li>
                   <%inventories = Inventory.where(user_id: current_user)%>
                   <%inventories.each do |inventory|%>
-                    <li><%=link_to inventory.site, inventory_path(inventory)%></li>
+                    <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-chevron-right")+"  #{inventory.site}"), inventory_path(inventory))%></li>
                   <%end%>
                 </ul>
             </li>
@@ -41,15 +41,15 @@
             <li class="dropdown">
               <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">Préstamos<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><%=link_to "Yo he prestado", loaned_elements_by_me_path%></li>
-                  <li><%=link_to "Me han prestado", loaned_elements_to_me_path%></li>
+                  <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-hand-left")+" Yo he prestado"), loaned_elements_by_me_path)%></li>
+                  <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-hand-right")+" Me han prestado"), loaned_elements_to_me_path)%></li>
                 </ul>
             </li>
           <li class="dropdown">
             <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#"><%=current_user.full_name%><b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><%=link_to "Editar Cuenta", edit_user_registration_path(current_user)%></li>
-                <li><%=link_to "Salir", destroy_user_session_path,  method: :delete%></li>
+                <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-user")+" Editar Cuenta"), edit_user_registration_path(current_user))%></li>
+                <li><%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-off")+" Salir"), destroy_user_session_path,  method: :delete)%></li>
               </ul>
           </li>
           <li><%= image_tag current_user.photo.url(:tiny), class: "img-rounded"%></li>

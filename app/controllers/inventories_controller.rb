@@ -23,7 +23,7 @@ class InventoriesController < ApplicationController
   def show
     @inventory = Inventory.find(params[:id])
     $path = request.fullpath
-    @elements = Element.where(:inventory_id => @inventory).page(params[:page]).per(5)
+    @elements = Element.where(:inventory_id => @inventory).page(params[:page]).per(10)
   end
 
   def update
