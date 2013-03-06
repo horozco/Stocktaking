@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Loan, as: "Prestamo" do
-  
+
   config.sort_order = "created_at_asc"
   config.per_page = 20
 
@@ -19,7 +19,7 @@ ActiveAdmin.register Loan, as: "Prestamo" do
     column "Fecha de creación", :created_at
     column "Fecha de actualización", :updated_at
     column "Finalizado" do |loan|
-      loan.finished ? "Si" : "No" 
+      loan.finished ? "Si" : "No"
     end
     default_actions
   end
@@ -59,6 +59,27 @@ ActiveAdmin.register Loan, as: "Prestamo" do
       end
       row "Finalizado?" do
         prestamo.finished ? "Si" : "No"
+      end
+    end
+
+    attributes_table do
+      row "Nombre" do
+        prestamo.element.name
+      end
+      row "Referencia" do
+        prestamo.element.reference
+      end
+      row "Estado" do
+        prestamo.element.status.humanize
+      end
+      row "Valor Estimado" do
+        prestamo.element.value
+      end
+      row "Detalles" do
+        prestamo.element.details
+      end
+      row "Prestado?" do
+        prestamo.element.loaned ? "Sí" : "No"
       end
     end
     active_admin_comments

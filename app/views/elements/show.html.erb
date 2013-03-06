@@ -9,7 +9,7 @@
       <div id="collapseOne" class="accordion-body collapse in">
         <div class="accordion-inner">
           <p><strong> Referencia: </strong> <%=@element.reference%></p>
-          <p><strong> Estado: </strong> <%=@element.status%></p>
+          <p><strong> Estado: </strong> <%=@element.status.humanize%></p>
           <p><strong> Valor estimado: </strong> <%=@element.value%></p>
           <p><strong> Detalles: </strong> <%=@element.details%></p>
   				<%unless @inventory.finished%>
@@ -47,7 +47,7 @@
       <div class="modal-body">
         <%= f.input :name, label: "Nombre" %>
         <%= f.input :reference, label: "referencia" %>
-        <%= f.input :status, label: "Estado" %>
+        <%= f.input :status, label: "Estado", collection: Element::STATUSES.invert.to_a %>
         <%= f.input :value, label: "Valor estimado" %>
         <%= f.input :details, :input_html =>{:rows => 10}, label: "Detalles"%>
       </div>

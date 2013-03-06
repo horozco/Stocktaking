@@ -44,6 +44,9 @@ ActiveAdmin.register Element, as: "Elemento" do
       row "Inventario" do
         link_to elemento.inventory.site, admin_inventario_path(elemento.inventory)
       end
+      row "Usuario" do
+        link_to elemento.inventory.user.full_name, admin_usuario_path(elemento.inventory.user)
+      end
       row "Nombre" do
         elemento.name
       end
@@ -51,7 +54,7 @@ ActiveAdmin.register Element, as: "Elemento" do
         elemento.reference
       end
       row "Estado" do
-        elemento.status
+        elemento.status.humanize
       end
       row "Valor Estimado" do
         elemento.value
@@ -69,6 +72,19 @@ ActiveAdmin.register Element, as: "Elemento" do
         elemento.updated_at
       end
     end
+
+    div do
+      panel("Préstamos del elemento") do
+        table_for(elemento.loans) do
+          column ("Prestado por") { |loan| link_to loan.user.full_name, admin_usuario_path(loan.user) }
+          column ("Prestado a") { |loan| link_to loan.loaned_to.full_name, admin_usuario_path(loan.loaned_to) }
+          column ("Fecha de inicio") { |loan| loan.start_date.localtime }
+          column ("Fecha de finalización") { |loan| loan.end_date ? loan.end_date.localtime : "N/A"}
+          column ("Finalizado") { |loan| loan.finished ? "Si" : "No"}
+        end
+      end
+    end
+
     active_admin_comments
   end
 

@@ -59,6 +59,45 @@ ActiveAdmin.register User, as: "Usuario" do
         image_tag(usuario.photo.url(:preview))
       end
     end
+
+    div do
+      panel("Inventarios") do
+        table_for(usuario.inventories) do
+          column ("Lugar") { |inventory| link_to inventory.site, admin_inventario_path(inventory) }
+          column ("Detalles") { |inventory| inventory.details }
+          column ("Fecha de creación") { |inventory| inventory.created_at.localtime }
+          column ("Fecha de actualización") { |inventory| inventory.updated_at.localtime }
+          column ("Finalizado") { |inventory| inventory.finished ? "Si" : "No"}
+        end
+      end
+    end
+
+    div do
+      panel("Prestamos hechos por #{usuario.full_name}") do
+        table_for(usuario.loans) do
+          column ("ID") {|loan| link_to loan.id, admin_prestamo_path(loan)}
+          column ("Elemento") { |loan| link_to loan.element.name, admin_prestamo_path(loan) }
+          column ("Prestado a") { |loan| link_to loan.loaned_to.full_name, admin_usuario_path(loan.loaned_to) }
+          column ("Fecha de inicio") { |loan| loan.start_date.localtime}
+          column ("Fecha de finalización") { |loan| loan.end_date ? loan.end_date.localtime : "N/A"}
+          column ("Finalizado") { |loan| loan.finished ? "Si" : "No"}
+        end
+      end
+    end
+
+    div do
+      panel("Prestamos hechos a #{usuario.full_name}") do
+        table_for(Loan.where(loaned_to_id: usuario)) do
+          column ("ID") {|loan| link_to loan.id, admin_prestamo_path(loan)}
+          column ("Elemento") { |loan| link_to loan.element.name, admin_prestamo_path(loan) }
+          column ("Prestado por") { |loan| link_to loan.user.full_name, admin_usuario_path(loan.user) }
+          column ("Fecha de inicio") { |loan| loan.start_date.localtime}
+          column ("Fecha de finalización") { |loan| loan.end_date ? loan.end_date.localtime : "N/A"}
+          column ("Finalizado") { |loan| loan.finished ? "Si" : "No"}
+        end
+      end
+    end
+
     active_admin_comments
   end
 

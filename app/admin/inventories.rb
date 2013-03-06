@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Inventory, as: "Inventario" do
-  
+
   menu :priority => 1
   config.sort_order = "site_asc"
   config.per_page = 10
@@ -18,7 +18,7 @@ ActiveAdmin.register Inventory, as: "Inventario" do
     column "Fecha de creación", :created_at
     column "Fecha de actualización", :updated_at
     column "Finalizado" do |inventory|
-      inventory.finished ? "Si" : "No" 
+      inventory.finished ? "Si" : "No"
     end
     default_actions
   end
@@ -29,9 +29,12 @@ ActiveAdmin.register Inventory, as: "Inventario" do
   filter :updated_at, as: :date_range, label: "Fecha de actualización"
 
   show do
-    
+
     attributes_table do
       row :id
+      row "Usuario" do
+        inventario.user
+      end
       row "Lugar" do
         inventario.site
       end
@@ -48,6 +51,20 @@ ActiveAdmin.register Inventory, as: "Inventario" do
         inventario.finished ? "Si" : "No"
       end
     end
+
+    div do
+      panel("Elementos del inventario") do
+        table_for(inventario.elements) do
+          column ("Nombre") { |element| link_to element.name, admin_elemento_path(element) }
+          column ("Referencia") { |element| element.reference }
+          column ("Estado Actual") { |element| element.status.humanize }
+          column ("Valor Estimado") { |element| element.value }
+          column ("Detalles") { |element| element.details }
+          column ("Prestado") { |element| element.loaned ? "Si" : "No"}
+        end
+      end
+    end
+
     active_admin_comments
   end
 
