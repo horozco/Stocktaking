@@ -167,7 +167,7 @@ DEPENDENCIES
   paperclip (= 3.4.0)
   pg
   rails (= 3.2.7)
-  rails-alertify
+  rails-alertify (= 0.3.2)
   sass-rails (~> 3.2.3)
   simple_form (= 2.0.4)
   uglifier (>= 1.0.3)
