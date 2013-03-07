@@ -161,11 +161,11 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (= 0.5.1)
   coffee-rails (~> 3.2.1)
-  devise
+  devise (= 2.2.2)
   jquery-rails
   kaminari (= 0.14.1)
   paperclip (= 3.4.0)
-  pg
+  pg (= 0.14.1)
   rails (= 3.2.7)
   rails-alertify (= 0.3.2)
   sass-rails (~> 3.2.3)
