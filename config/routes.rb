@@ -1,10 +1,10 @@
 Stocktaking::Application.routes.draw do
 
-  ActiveAdmin.routes(self)
+  #ActiveAdmin.routes(self)
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  #devise_for :admin_users, ActiveAdmin::Devise.config
 
-  devise_for :users
+  #devise_for :users
 
   resources :inventories, only: [:create, :destroy, :update, :index, :show] do
     resources :elements, only: [:create, :destroy, :update, :show] do
