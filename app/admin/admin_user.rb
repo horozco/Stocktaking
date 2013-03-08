@@ -47,13 +47,13 @@ ActiveAdmin.register AdminUser, as: "Administrador" do
         administrador.sign_in_count
       end
       row "Última Fecha de Ingreso" do
-        administrador.last_sign_in_at
+        administrador.last_sign_in_at.localtime
       end
       row "Fecha de creación" do
-        administrador.created_at
+        administrador.created_at.localtime
       end
       row "Fecha de actualización" do
-        administrador.updated_at
+        administrador.updated_at.localtime
       end
       row :photo do
         image_tag(administrador.photo.url(:preview))

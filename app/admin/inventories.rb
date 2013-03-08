@@ -42,10 +42,10 @@ ActiveAdmin.register Inventory, as: "Inventario" do
         inventario.details
       end
       row "Fecha de creación" do
-        inventario.created_at
+        inventario.created_at.localtime
       end
       row "Fecha de actualización" do
-        inventario.updated_at
+        inventario.updated_at.localtime
       end
       row "Finalizado?" do
         inventario.finished ? "Si" : "No"

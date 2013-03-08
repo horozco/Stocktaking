@@ -66,10 +66,10 @@ ActiveAdmin.register Element, as: "Elemento" do
         elemento.loaned ? "Sí" : "No"
       end
       row "Fecha de creación" do
-        elemento.created_at
+        elemento.created_at.localtime
       end
       row "Fecha de actualización" do
-        elemento.updated_at
+        elemento.updated_at.localtime
       end
     end
 

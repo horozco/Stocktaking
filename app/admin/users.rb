@@ -11,7 +11,9 @@ ActiveAdmin.register User, as: "Usuario" do
     column "Foto" do |user|
       link_to image_tag("/users/#{user.id}/tiny/#{user.photo_file_name}"), admin_usuario_path(user)
     end
-    column "Nombre Completo", :full_name
+    column "Nombre Completo" do |user|
+      link_to user.full_name, admin_usuario_path(user)
+    end
     column "Correo Electrónico", :email
     column "Último Ingreso", :last_sign_in_at
     column "No de Ingresos", :sign_in_count
@@ -47,13 +49,13 @@ ActiveAdmin.register User, as: "Usuario" do
         usuario.sign_in_count
       end
       row "Última Fecha de Ingreso" do
-        usuario.last_sign_in_at
+        usuario.last_sign_in_at.localtime
       end
       row "Fecha de creación" do
-        usuario.created_at
+        usuario.created_at.localtime
       end
       row "Fecha de actualización" do
-        usuario.updated_at
+        usuario.updated_at.localtime
       end
       row :photo do
         image_tag(usuario.photo.url(:preview))

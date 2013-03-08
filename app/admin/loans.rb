@@ -52,34 +52,36 @@ ActiveAdmin.register Loan, as: "Prestamo" do
         prestamo.end_date
       end
       row "Fecha de creación" do
-        prestamo.created_at
+        prestamo.created_at.localtime
       end
       row "Fecha de actualización" do
-        prestamo.updated_at
+        prestamo.updated_at.localtime
       end
       row "Finalizado?" do
         prestamo.finished ? "Si" : "No"
       end
     end
 
-    attributes_table do
-      row "Nombre" do
-        prestamo.element.name
-      end
-      row "Referencia" do
-        prestamo.element.reference
-      end
-      row "Estado" do
-        prestamo.element.status.humanize
-      end
-      row "Valor Estimado" do
-        prestamo.element.value
-      end
-      row "Detalles" do
-        prestamo.element.details
-      end
-      row "Prestado?" do
-        prestamo.element.loaned ? "Sí" : "No"
+    panel 'Detalles del Elemento' do
+      attributes_table_for  prestamo do
+        row "Nombre" do
+          link_to prestamo.element.name, admin_elemento_path(prestamo.element)
+        end
+        row "Referencia" do
+          prestamo.element.reference
+        end
+        row "Estado" do
+          prestamo.element.status.humanize
+        end
+        row "Valor Estimado" do
+          prestamo.element.value
+        end
+        row "Detalles" do
+          prestamo.element.details
+        end
+        row "Prestado?" do
+          prestamo.element.loaned ? "Sí" : "No"
+        end
       end
     end
     active_admin_comments
