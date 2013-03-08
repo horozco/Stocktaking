@@ -27,7 +27,7 @@ class LoansController < ApplicationController
       respond_to do |format|
         if @loan.save
           if @element.update_attribute(:loaned, true)
-            flash[:notice] = "Se ha prestado el elemento."
+            flash[:notice] = "Usted ha prestado el elemento #{@element.name.camelcase} a #{@loan.loaned_to.full_name.camelcase}."
           else
             flash[:alert] = "El elemento no se pudo prestar."
           end

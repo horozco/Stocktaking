@@ -1,68 +1,75 @@
+<%= title "Elementos que he prestado -  Stocktaking" %>
 <fieldset>
   <div class="my_loans">
     <legend>Préstamos realizados por mi</legend>
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>Elemento</th>
-          <th>Prestado a</th>
-          <th>Fecha de inicio</th>
-          <th>Finalizado?</th>
-          <th>Fecha de finalización</th>
-          <th>Duración del préstamo</th>
-          <th>Editar</th>
-        </tr>
-      </thead>
-      <% @loans.each do |loan|%>
-        <tbody>
-          <% unless loan.finished%>
-            <tr class= "loaned">
-          <%else%>
-            <tr>
-          <%end%>
-          <td><%= link_to loan.element.name, inventory_element_path(loan.element.inventory, loan.element)%></td>
-          <td><%= loan.loaned_to.full_name %></td>
-          <td><%= l loan.start_date.localtime, :format => :special %></td>
-          <td><%= loan.finished ? "Sí" : "No"%></td>
-          <% if loan.finished %>
-            <td><%= l loan.end_date.localtime, :format => :special %></td>
-            <td><%= distance_of_time_in_words(loan.start_date, loan.end_date)%></td>
-            <td>N/A</td>
-          <%else%>
-            <td>N/A</td>
-            <td>N/A</td>
-            <td>
-              <div class="btn-group">
-                <a href="#modalEdit<%="#{loan.id}"%>" role="button" class="btn btn-small" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Préstamo"></i></a>
-                <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-remove")), finish_loan_path(loan)+"?return=#{loaned_elements_by_me_path}", method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-small btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento")%>
+    <%if @loans.size > 0 %>
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Prestado a</th>
+            <th>Fecha de inicio</th>
+            <th>Finalizado?</th>
+            <th>Fecha de finalización</th>
+            <th>Duración del préstamo</th>
+            <th>Editar</th>
+          </tr>
+        </thead>
+        <% @loans.each do |loan|%>
+          <tbody>
+            <% unless loan.finished%>
+              <tr class= "loaned">
+            <%else%>
+              <tr>
+            <%end%>
+            <td><%= link_to loan.element.name, inventory_element_path(loan.element.inventory, loan.element)%></td>
+            <td><%= loan.loaned_to.full_name %></td>
+            <td><%= l loan.start_date.localtime, :format => :special %></td>
+            <td><%= loan.finished ? "Sí" : "No"%></td>
+            <% if loan.finished %>
+              <td><%= l loan.end_date.localtime, :format => :special %></td>
+              <td><%= distance_of_time_in_words(loan.start_date, loan.end_date)%></td>
+              <td>N/A</td>
+            <%else%>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>
+                <div class="btn-group">
+                  <a href="#modalEdit<%="#{loan.id}"%>" role="button" class="btn btn-small" data-toggle="modal"><i class="icon-edit" rel= "tooltip" title= "Editar Préstamo"></i></a>
+                  <%=link_to(content_tag(:span, content_tag(:i, nil, :class => "icon-remove")), finish_loan_path(loan)+"?return=#{loaned_elements_by_me_path}", method: :put, data:{confirm: "¿Realmente desea finalizar el préstamo de este elemento?"}, class: "btn btn-small btn-success", :rel => "tooltip", :"title" => "Finalizar Préstamo del elemento")%>
+                </div>
+              </td>
+            <%end%>
+            <!--Modal edit-->
+            <div id="modalEdit<%="#{loan.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
+              <div class="modal-header" style="height: 44px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="modalEditLabel">Editar Préstamo</h3>
+                <hr>
               </div>
-            </td>
-          <%end%>
-          <!--Modal edit-->
-          <div id="modalEdit<%="#{loan.id}"%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
-            <div class="modal-header" style="height: 44px;">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-              <h3 id="modalEditLabel">Editar Préstamo</h3>
-              <hr>
+              <div id="errors_edit_loan_<%=loan.id%>" class="hide errors" style = "float: right"></div>
+             <%=form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
+                  <div class="modal-body">
+                    <%= f.label :loaned_to_id , "*Prestar a"%>
+                    <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user))%>
+                    <%= f.label :start_date , "*Fecha de inicio"%>
+                    <%= f.text_field :start_date, id: 'datetimepicker'%>
+                    <%= hidden_field_tag :return, "#{loaned_elements_by_me_path}"%>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <%= f.submit 'Aceptar', class: "btn btn-primary" %>
+                  </div>
+                <%end%>
             </div>
-            <div id="errors_edit_loan_<%=loan.id%>" class="hide errors" style = "float: right"></div>
-           <%=form_for([loan.element.inventory, loan.element, loan], remote: :true, html: {style: "margin-bottom: 0px"}) do |f|%>
-                <div class="modal-body">
-                  <%= f.label :loaned_to_id , "*Prestar a"%>
-                  <%= f.select :loaned_to_id , options_for_select(User.all_users(current_user))%>
-                  <%= f.label :start_date , "*Fecha de inicio"%>
-                  <%= f.text_field :start_date, id: 'datetimepicker'%>
-                  <%= hidden_field_tag :return, "#{loaned_elements_by_me_path}"%>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                  <%= f.submit 'Aceptar', class: "btn btn-primary" %>
-                </div>
-              <%end%>
-          </div>
-        </tbody>
-      <%end%>
-    </table>
-    <%= paginate @loans%>
+          </tbody>
+        <%end%>
+      </table>
+      <%= paginate @loans%>
+    <%else%>
+      <div class="well">
+        <%=link_to "Seleccione un elemento de sus inventarios y empiece a prestar.", inventories_path%>
+      </div>
+    <%end%>
   </div>
 </fieldset>

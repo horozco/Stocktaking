@@ -61,7 +61,7 @@ ActiveAdmin.register User, as: "Usuario" do
     end
 
     div do
-      panel("Inventarios") do
+      panel("INVENTARIOS") do
         table_for(usuario.inventories) do
           column ("Lugar") { |inventory| link_to inventory.site, admin_inventario_path(inventory) }
           column ("Detalles") { |inventory| inventory.details }
@@ -73,7 +73,7 @@ ActiveAdmin.register User, as: "Usuario" do
     end
 
     div do
-      panel("Prestamos hechos por #{usuario.full_name}") do
+      panel("PRÉSTAMOS HECHOS POR #{usuario.full_name.upcase}") do
         table_for(usuario.loans) do
           column ("ID") {|loan| link_to loan.id, admin_prestamo_path(loan)}
           column ("Elemento") { |loan| link_to loan.element.name, admin_prestamo_path(loan) }
@@ -86,7 +86,7 @@ ActiveAdmin.register User, as: "Usuario" do
     end
 
     div do
-      panel("Prestamos hechos a #{usuario.full_name}") do
+      panel("PRÉSTAMOS HECHOS A #{usuario.full_name.upcase}") do
         table_for(Loan.where(loaned_to_id: usuario)) do
           column ("ID") {|loan| link_to loan.id, admin_prestamo_path(loan)}
           column ("Elemento") { |loan| link_to loan.element.name, admin_prestamo_path(loan) }

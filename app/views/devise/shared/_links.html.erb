@@ -23,3 +23,7 @@
     <%= link_to "Iniciar sesión con #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
   <% end -%>
 <% end -%>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "¿Eres administrador?", admin_user_session_path %><br />
+<% end -%>
